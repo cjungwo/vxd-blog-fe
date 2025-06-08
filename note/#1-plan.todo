@@ -1,0 +1,50 @@
+#1-Plan:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    Personal Blog Dev Project
+
+    Requirments
+    - post crud
+    - sign in, sign up
+    - future add...
+
+    Pages
+    - Post List(Home)
+    - Post Detail
+    - Post Create/Update
+    - Sign In
+    - Sign Up
+    - Future add...
+
+    Widgets
+    - Dev Nav
+    - Main Header
+    - Main Footer
+    - Future add...
+
+    Features
+    - Sign In Btn
+    - Sign Up Btn
+    - Sign Out Btn
+    - Main Navigation
+    - Search Bar
+    - Breadcrumbs
+    - Post Item
+    - Social Sharing Btn
+    - Future add...
+
+    Entities
+    - Post
+    - User
+    - Future add...
+
+    Shared
+    - Future add...
+
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+
+  ☐ Work List: @must @could @should @won't
+
+  ☐ Retrospect
+
+  ☐ Additions
