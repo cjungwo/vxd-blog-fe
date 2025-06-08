@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { DevNav } from "@/widgets";
 
 export const metadata: Metadata = {
   title: "VXD Blog",
@@ -15,6 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         {children}
+        <DevNav />
       </body>
     </html>
   );

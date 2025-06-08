@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.8",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "dotenv": "^16.5.0",
     "json-date-parser": "^1.0.1",
     "next": "15.3.3",
+    "postcss": "^8.5.4",
     "qs": "^6.14.0",
     "radashi": "^12.5.1",
     "react": "^19.0.0",
@@ -26,7 +28,7 @@
     "@eslint/eslintrc": "^3",
     "@faker-js/faker": "^9.8.0",
     "@playwright/test": "^1.52.0",
-    "@tailwindcss/postcss": "^4",
+    "@tailwindcss/postcss": "^4.1.8",
     "@types/node": "^20",
     "@types/qs": "^6.14.0",
     "@types/react": "^19",
@@ -34,7 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.3",
     "msw": "^2.10.1",
-    "tailwindcss": "^4",
+    "tailwindcss": "^4.1.8",
     "typescript": "^5",
     "vitest": "^3.2.2"
   }
