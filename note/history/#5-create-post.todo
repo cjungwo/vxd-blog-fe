@@ -1,0 +1,26 @@
+#5-CreatePost:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    Post create page should show post create form
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    1. add CreatePostForm component
+      - Title, content, submit btn
+
+      validation 
+      - title is required
+      - content is required
+
+      submit btn
+      1) send post data to server
+      2) show toast message
+      3) redirect to post detail page
+
+    2. apply CreatePostForm component in post create page
+
+  ☐ Work List: @must @could @should @won't
+    ✔ add CreatePostForm component @started(25-06-10 16:06) @done(25-06-10 16:48) @lasted(42m1s)
+    ✔ apply CreatePostForm component in post create page @started(25-06-10 16:48) @done(25-06-10 16:48) @lasted(3s)
+
+  ☐ Retrospect
+
+  ☐ Additions

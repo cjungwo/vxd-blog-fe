@@ -1,3 +1,7 @@
+import { CreatePostForm } from "@/widgets";
+
 export default function CreatePostPage() {
-   return <div>Create Post</div>;
+   return <div>
+      <CreatePostForm />
+   </div>;
 }
