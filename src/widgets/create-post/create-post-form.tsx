@@ -1,5 +1,6 @@
 "use client";
 
+import { CreatePostDto } from '@/entities';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -12,6 +13,7 @@ interface Props {
 
 export const CreatePostForm = (props: Props) => {
   const router = useRouter();
+
   const user = "Unknown Author";
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
@@ -24,21 +26,16 @@ export const CreatePostForm = (props: Props) => {
       setIsValid(true);
     }
   }, [title, content]);
-
+  
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log('submit', title, content);
-
-    const post = {
+    const post: CreatePostDto = {
       title,
       content,
-      author: user,
-      createdAt: new Date().toISOString(),
+      author: user
     };
-
-    console.log('post', post);
 
     fetch('/api/v1/posts', {
       method: 'POST',
@@ -47,11 +44,11 @@ export const CreatePostForm = (props: Props) => {
       },
       body: JSON.stringify(post),
     })
-    .then((response) => {
-      if (!response.ok) {
+    .then((resp) => {
+      if (!resp.ok) {
         throw new Error('Failed to create post');
       }
-      return response.json();
+      return resp.json();
     })
     .then(() => {
       toast.success('Post created successfully!', {
@@ -70,8 +67,7 @@ export const CreatePostForm = (props: Props) => {
         }
       });
     })
-    .catch((error) => {
-      console.error('Error creating post:', error);
+    .catch(() => {
       toast.error('Error creating post. Please try again.', {
         position: "top-right",
         autoClose: 3000,
@@ -107,6 +103,7 @@ export const CreatePostForm = (props: Props) => {
         <textarea id="content" className="border w-full text-black border-gray-300 rounded-md p-2" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
       </div>
       <div className="flex justify-end">
+        <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2" onClick={() => router.back()}>Cancel</button>
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md" disabled={!isValid}>Create</button>
       </div>
     </form>
