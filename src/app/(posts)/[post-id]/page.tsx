@@ -1,9 +1,7 @@
-export default function PostPage({
-  params,
-}: {
-  params: {
-    postId: string;
-  };
-}) {
-  return <div>Post {params.postId}</div>;
+import { PostProps } from "@/shared";
+
+export default async function PostPage({ params }: PostProps) {
+  const postId = (await params)['post-id'];
+
+  return <div>Post {postId}</div>;
 }

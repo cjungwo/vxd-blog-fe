@@ -1,0 +1,31 @@
+#3-Home:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    Home page should show list of posts
+    
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    1. add Header component
+      - Title, Main Navigation, Sign In/Up Btn(Author Name Btn)
+    2. apply Header component in home page
+    3. add Footer component
+      - Copyright, Social Links
+    4. apply Footer component in home page
+    5. add PostList component
+      - one column
+    6. add PostItem component
+      - Title, content(one sentence), date, author name
+    7. apply PostList component in home page
+
+  ☐ Work List: @must @could @should @won't
+    ✔ add Header component @started(25-06-09 16:11) @done(25-06-09 16:59) @lasted(48m19s)
+    ✔ apply Header component @started(25-06-09 16:59) @done(25-06-09 16:59) @lasted(21s)
+    ✔ add Footer component @started(25-06-09 16:59) @done(25-06-09 17:13) @lasted(14m32s)
+    ✔ apply Footer component @started(25-06-09 17:13) @done(25-06-09 17:13) @lasted(35s)
+    ✔ add post entity @started(25-06-09 17:20) @done(25-06-09 17:35) @lasted(15m5s)
+    ✔ add dummy posts @started(25-06-09 17:35) @done(25-06-09 17:35) @lasted(11s)
+    ✔ add PostList component @started(25-06-09 17:13) @done(25-06-09 17:35) @lasted(22m14s)
+    ✔ add PostItem component @started(25-06-09 17:35) @done(25-06-09 17:35) @lasted(17s)
+    ✔ apply PostList component @started(25-06-09 17:35) @done(25-06-09 17:35) @lasted(19s)
+  ☐ Retrospect
+
+  ☐ Additions

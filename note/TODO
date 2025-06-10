@@ -1,0 +1,15 @@
+#4-PostDetail:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    Post detail page should show post detail
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    1. add PostDetail component
+      - Title, content, date, author name
+    2. apply PostDetail component in post detail page
+
+  ☐ Work List: @must @could @should @won't
+    
+
+  ☐ Retrospect
+
+  ☐ Additions

@@ -8,7 +8,7 @@
     1. add Path interface in shared
     2. add Paths as const Path[] in shared
     3. add DevNav component in widgets
-    4. use DevNav component in app
+    4. apply DevNav component in app
 
     Test -> manually
 
@@ -17,7 +17,7 @@
     ✔ add Path interface in shared @started(25-06-08 11:22) @done(25-06-08 11:28) @lasted(7m)
     ✔ add Paths as const Path[] in shared @started(25-06-08 11:29) @done(25-06-08 11:29) @lasted(4s)
     ✔ add DevNav component in widgets @started(25-06-08 11:32) @done(25-06-08 11:32) @lasted(47s)
-    ✔ use DevNav component in app @started(25-06-08 11:32) @done(25-06-08 11:37) @lasted(5m11s)
+    ✔ apply DevNav component in app @started(25-06-08 11:32) @done(25-06-08 11:37) @lasted(5m11s)
 
   ☐ Retrospect
 

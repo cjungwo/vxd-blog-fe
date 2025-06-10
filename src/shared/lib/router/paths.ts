@@ -2,23 +2,38 @@ import { Path } from "./path.interface";
 
 export const paths: Path[] = [
   {
-      name: 'Home',
-      path: '/',
+    name: 'Home',
+    path: '/',
+    group: ['main', 'dev'],
   },
   {
-      name: 'Sign In',
-      path: '/sign-in',
+    name: 'About',
+    path: '/about',
+    group: ['main'],
   },
   {
-      name: 'Sign Up',
-      path: '/sign-up',
+    name: 'Contact',
+    path: '/contact',
+    group: ['main'],
   },
   {
-      name: 'Post Detail',
-      path: '/1',
+    name: 'Sign In',
+    path: '/sign-in',
+    group: 'dev',
   },
   {
-      name: 'Post Create',
-      path: '/create-post',
+    name: 'Sign Up',
+    path: '/sign-up',
+    group: 'dev',
+  },
+  {
+    name: 'Post Detail',
+    path: '/1',
+    group: 'dev',
+  },
+  {
+    name: 'Post Create',
+    path: '/create-post',
+    group: 'dev',
   },
 ];

@@ -7,11 +7,11 @@
             "import clsx from 'clsx';",
             "",
             "interface Props {",
-            "   className?: string;",
+            "  className?: string;",
             "}",
             "",
             "export const ${1:Component} = (props: Props) => {",
-            "   return <div className={clsx(props.className)}>$0</div>;",
+            "  return <div className={clsx(props.className)}>$0</div>;",
             "};",
             ""
         ]
@@ -22,7 +22,7 @@
         "description": "init page",
         "body": [
             "export default function ${1:Page}() {",
-            "   return <>$0</>;",
+            "  return <>$0</>;",
             "};",
             ""
         ]
