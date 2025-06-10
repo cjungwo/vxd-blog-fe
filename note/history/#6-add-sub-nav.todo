@@ -1,0 +1,21 @@
+#6-AddSubNav:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    SubNav for home page
+    - BreadCrumb
+    - Create Post Btn(link to create post page)
+
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    1. add SubNav component
+      - BreadCrumb
+      - Create Post Btn(link to create post page)
+
+    2. apply SubNav component in home page
+
+  ☐ Work List: @must @could @should @won't
+    ✔ add SubNav component @started(25-06-10 17:23) @done(25-06-10 17:43) @lasted(20m5s)
+    ✔ apply SubNav component in home page @started(25-06-10 17:43) @done(25-06-10 17:44) @lasted(1m8s)
+
+  ☐ Retrospect
+
+  ☐ Additions

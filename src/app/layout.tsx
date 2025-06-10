@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { DevNav, Footer, Header } from "@/widgets";
+import { Footer, Header, SubNav } from "@/shared/ui";
+import { DevNav } from "@/widgets";
 
 export const metadata: Metadata = {
   title: "VXD Blog",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased min-h-screen mx-4">
         <Header className="py-4" />
+        <SubNav />
         {children}
         <Footer className="py-4" />
         <DevNav />
