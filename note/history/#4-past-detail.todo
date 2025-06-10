@@ -1,0 +1,18 @@
+#4-PostDetail:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    Post detail page should show post detail
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    1. add PostDetail component
+      - Title, content, date, author name
+    2. apply PostDetail component in post detail page
+
+  ☐ Work List: @must @could @should @won't
+    ✔ move header to main layout @started(25-06-10 15:47) @done(25-06-10 16:00) @lasted(13m58s)
+    ✔ move footer to main layout @started(25-06-10 15:47) @done(25-06-10 16:00) @lasted(13m59s)
+    ✔ add PostDetail component @started(25-06-10 16:01) @done(25-06-10 16:01) @lasted(28s)
+    ✔ apply PostList component in post detail page @started(25-06-10 16:01) @done(25-06-10 16:01) @lasted(31s)
+
+  ☐ Retrospect
+
+  ☐ Additions
