@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { PostItem } from '@/features';
 import { Post } from '@/entities';
 import { useEffect, useState } from 'react';
+import { sortPostsByDate } from '@/shared';
 
 interface Props {
   className?: string;
@@ -13,11 +14,15 @@ export const PostList = (props: Props) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    fetch('/api/v1/posts').then((resp) => resp.json()).then((data) => setPosts(data));
+    fetch('/api/v1/posts')
+    .then((resp) => resp.json())
+    .then((json) => {
+      setPosts(json.data.posts);
+    });
   }, []);
 
   return <div className={clsx(props.className)}>
-    {posts.map((post: Post) => (
+    {sortPostsByDate(posts).map((post: Post) => (
       <PostItem className='mb-4' key={post.id} post={post} />
     ))}
 
