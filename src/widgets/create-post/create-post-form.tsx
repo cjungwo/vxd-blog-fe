@@ -26,7 +26,6 @@ export const CreatePostForm = (props: Props) => {
       setIsValid(true);
     }
   }, [title, content]);
-  
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,6 +47,7 @@ export const CreatePostForm = (props: Props) => {
       if (!resp.ok) {
         throw new Error('Failed to create post');
       }
+
       return resp.json();
     })
     .then(() => {
