@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const MainNav = (props: Props) => {
-  return <div className={clsx(props.className)}>
+  return <nav className={clsx(props.className)}>
     <ul className="flex gap-4">
       {paths.filter((path) => path.group?.includes('main')).map((path) => (
         <div key={path.name}>
@@ -17,5 +17,5 @@ export const MainNav = (props: Props) => {
         </div>
       ))}
     </ul>
-  </div>;
+  </nav>;
 };
