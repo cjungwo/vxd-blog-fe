@@ -1,0 +1,24 @@
+#7-Post API:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    GET, POST, PUT, DELETE
+
+    GET /api/posts -> findAllPost
+    POST /api/posts -> createPost
+
+    GET /api/posts/:id -> findOnePost
+    PUT /api/posts/:id -> updatePost
+    DELETE /api/posts/:id -> deletePost
+    
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    
+  ☐ Work List: @must @could @should @won't
+    ✔ add GET Method on /api/posts @started(25-06-12 16:33) @done(25-06-12 16:33) @lasted(35s)
+    ✔ add POST Method on /api/posts @started(25-06-12 16:33) @done(25-06-12 16:33) @lasted(37s)
+    ✔ add GET Method on /api/posts/:id @started(25-06-12 16:33) @done(25-06-12 16:33) @lasted(40s)
+    ✔ add PUT Method on /api/posts/:id @started(25-06-12 16:33) @done(25-06-12 16:33) @lasted(42s)
+    ✔ add DELETE Method on /api/posts/:id @started(25-06-12 16:33) @done(25-06-12 16:33) @lasted(43s)
+
+  ☐ Retrospect
+
+  ☐ Additions

@@ -1,3 +1,4 @@
+import { posts } from '@/entities';
 import clsx from 'clsx';
 import Link from 'next/link';
 
@@ -19,10 +20,12 @@ export const Breadcrumb = (props: Props) => {
     if (path === "") {
       return null;
     }
-
+    
+    const title = posts.find((post) => post.id === path)?.title;
+    
     return (
       <Link href={path} key={index} className='before:content-[">"] before:mr-2 px-2 py-1'>
-        <span>{path}</span>
+        <span>{title ?? path}</span>
       </Link>
     )
   })

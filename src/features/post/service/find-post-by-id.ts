@@ -1,4 +1,5 @@
 import { posts } from "@/entities";
+import { ResponseDto } from "@/shared";
 
 export async function findPostById(id: string) {
   // Validation Guard
@@ -8,7 +9,7 @@ export async function findPostById(id: string) {
       data: {
         message: "Invalid post id",
       }
-    };
+    } as ResponseDto;
   }
 
   // Business Logic
@@ -20,16 +21,16 @@ export async function findPostById(id: string) {
       data: {
         message: "Post not found",
       }
-    };
+    } as ResponseDto;
   }
 
   // Create Response
-  const result = {
+  const result: ResponseDto = {
     status: 200,
     data: {
       post: post,
     }
-  }
+  };
 
   // Return Response
   return result;
