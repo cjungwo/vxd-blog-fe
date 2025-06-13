@@ -7,6 +7,6 @@ interface Props {
 
 export const CreatePostBtn = (props: Props) => {
   return <div className={clsx(props.className)}>
-    <Link href="/create-post">Create Post</Link>
+    <Link href="/posts/create-post">Create Post</Link>
   </div>;
 };

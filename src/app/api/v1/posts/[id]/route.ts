@@ -2,17 +2,15 @@ import { UpdatePostDto } from "@/entities";
 import { deletePost, findPostById, updatePost } from "@/features";
 
 type Params = {
-  params: {
-    id: string;
-  };
+  params: Promise<{ id: string }>;
 };
 
-export async function GET(request: Request, { params }: Params) { 
+export async function GET(_: Request, { params }: Params) { 
   const { id } = await params;
 
   const result = await findPostById(id);
 
-  return new Response(JSON.stringify(result));
+  return Response.json(result);
 }
 
 export async function PUT(request: Request, { params }: Params) { 
@@ -26,11 +24,12 @@ export async function PUT(request: Request, { params }: Params) {
 
   const result = await updatePost(dto);
 
-  return new Response(JSON.stringify(result));
+  return Response.json(result);
 }
 
-export async function DELETE(request: Request, { params }: Params) { 
+export async function DELETE(_: Request, { params }: Params) { 
   const { id } = await params;
   const result = await deletePost(id);
-  return new Response(JSON.stringify(result));
+  return Response.json(result);
 }
+

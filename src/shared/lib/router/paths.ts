@@ -28,12 +28,12 @@ export const paths: Path[] = [
   },
   {
     name: 'Post Detail',
-    path: '/1',
+    path: '/posts/P20250611203938652727',
     group: 'dev',
   },
   {
     name: 'Post Create',
-    path: '/create-post',
+    path: '/posts/create-post',
     group: 'dev',
   },
 ];

@@ -1,3 +1,4 @@
 export * from "./router";
-export * from "./generator";
+export * from "./generators";
 export * from "./utils";
+export * from "./consts";

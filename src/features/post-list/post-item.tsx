@@ -14,7 +14,7 @@ export const PostItem = ({ className, post }: Props) => {
       'group relative flex flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900',
       className
     )}>
-      <Link href={`/${post.id}`} className="absolute inset-0 z-0" aria-label={`Read more about ${post.title}`}>
+      <Link href={`/posts/${post.id}`} className="absolute inset-0 z-0" aria-label={`Read more about ${post.title}`}>
         <span className="sr-only">Read more</span>
       </Link>
       

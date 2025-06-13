@@ -24,7 +24,7 @@ export const Breadcrumb = (props: Props) => {
     const title = posts.find((post) => post.id === path)?.title;
     
     return (
-      <Link href={path} key={index} className='before:content-[">"] before:mr-2 px-2 py-1'>
+      <Link href={`/${path}`} key={index} className='before:content-[">"] before:mr-2 px-2 py-1'>
         <span>{title ?? path}</span>
       </Link>
     )
