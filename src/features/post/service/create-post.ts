@@ -1,6 +1,6 @@
-import { CreatePostDto, Post, posts } from "@/entities";
-import { generatePostId } from "@/shared";
+import { CreatePostDto, Post } from "@/entities";
 import { ResponseDto } from "@/shared/dto/response.dto";
+import { prisma } from "@/shared";
 
 export async function createPost(dto: CreatePostDto) {
   // Validation Guard
@@ -14,19 +14,18 @@ export async function createPost(dto: CreatePostDto) {
   }
 
   // Business Logic
-  const newPost: Post = {
-      ...dto,
-      id: generatePostId(),
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-  };
-
-  posts.push(newPost);
+  const newPost: Post = await prisma.post.create({
+    data: {
+      title: dto.title,
+      content: dto.content,
+      author: dto.author,
+    }
+  });
 
   // Result Checking
-  const post = posts.find((post) => post.id === newPost.id);
+  const createdPost = await prisma.post.findUnique({ where: { id: newPost.id } });
 
-  if (!post) {
+  if (!createdPost) {
     return {
       status: 400,
       data: {
@@ -39,7 +38,7 @@ export async function createPost(dto: CreatePostDto) {
   const result: ResponseDto = {
       status: 201,
       data: {
-          id: post.id,
+          id: createdPost.id,
       }
   };
 

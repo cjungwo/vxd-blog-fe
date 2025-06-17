@@ -1,5 +1,5 @@
 import { posts, UpdatePostDto } from "@/entities";
-import { ResponseDto } from "@/shared/dto/response.dto";
+import { ResponseDto } from "@/shared";
 
 export async function updatePost(dto: UpdatePostDto) {
   // Validation Guard

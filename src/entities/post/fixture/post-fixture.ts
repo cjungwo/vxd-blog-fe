@@ -1,4 +1,4 @@
-import { Post } from "./type/post.entity";
+import { Post } from "../entity/post.entity";
 
 export const posts: Post[] = [
   {

@@ -1,0 +1,38 @@
+#8-SignIn & SignUp:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    - Sign In Page
+      - sign in form
+      - sign in button
+      - sign in logic
+    - Sign Up Page
+      - sign up form
+      - sign up button
+      - sign up logic
+    - User Model
+      - user entity
+      - user samples
+    - User API
+      - crud
+    - Sign Up Api
+    - Sign In Api
+
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    - Sign In Page
+    - Sign Up Page
+    - User Model
+    - User API
+    - Sign Up Api
+    - Sign In Api
+
+  ☐ Work List: @must @could @should @won't
+    ✔ Sign In Page @started(25-06-16 13:58) @done(25-06-16 14:07) @lasted(9m54s)
+    ✔ Sign Up Page @started(25-06-16 14:07) @done(25-06-16 14:54) @lasted(1h47m35s)
+    ✔ User Model @started(25-06-16 14:54) @done(25-06-16 15:07) @lasted(13m)
+    ✔ User API @started(25-06-16 15:07) @done(25-06-16 16:07) @lasted(1h)
+    ✔ Sign Up Api @started(25-06-17 15:11) @done(25-06-17 16:24) @lasted(1h13m9s)
+    ✔ Sign In Api @started(25-06-17 16:24) @done(25-06-17 17:26) @lasted(1h2m53s)
+    
+  ☐ Retrospect
+
+  ☐ Additions

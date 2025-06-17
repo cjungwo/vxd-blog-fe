@@ -1,9 +1,9 @@
 "use client";
 
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import { PostItem } from '@/features';
 import { Post } from '@/entities';
-import { useEffect, useState } from 'react';
 import { sortPostsByDate } from '@/shared';
 
 interface Props {

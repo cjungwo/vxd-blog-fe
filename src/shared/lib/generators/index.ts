@@ -1,1 +1,1 @@
-export * from "./generate-post-id";
+export * from "./generate-id";
