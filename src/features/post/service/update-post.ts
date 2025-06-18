@@ -1,5 +1,6 @@
-import { posts, UpdatePostDto } from "@/entities";
+import { UpdatePostDto } from "@/entities";
 import { ResponseDto } from "@/shared";
+import { prisma } from "@/shared";
 
 export async function updatePost(dto: UpdatePostDto) {
   // Validation Guard
@@ -13,7 +14,7 @@ export async function updatePost(dto: UpdatePostDto) {
   }
 
   // Business Logic
-  const post = posts.find((post) => post.id === dto.id);
+  const post = await prisma.post.findUnique({ where: { id: dto.id } });
 
   if (!post) {
     return {
@@ -42,7 +43,7 @@ export async function updatePost(dto: UpdatePostDto) {
     data: {
       post: post,
     }
-  }
+  };
 
   // Return Response
   return result;

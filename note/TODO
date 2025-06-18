@@ -1,0 +1,44 @@
+#9-DB:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    PostgreSQL DB via Prisma
+
+    Schema
+    - Post
+      - id
+      - title
+      - content
+      - authorId
+      - authorName
+      - createdAt
+      - updatedAt
+
+    - User
+      - id
+      - name
+      - email
+      - hash
+      - createdAt
+      - updatedAt
+      - posts
+
+    - Future add...
+
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    
+  ☐ Work List: @must @could @should @won't
+    ☐ Post
+      ✔ Schema @started(25-06-18 14:01) @done(25-06-18 15:41) @lasted(1h40m47s)
+      ☐ Create @started(25-06-18 15:42)
+      ☐ Read
+      ☐ Update
+      ☐ Delete
+    ☐ User
+      ✔ Schema @started(25-06-18 14:01) @done(25-06-18 15:41) @lasted(1h40m47s)
+      ☐ Create @started(25-06-18 15:42)
+      ☐ Read
+      ☐ Update
+      ☐ Delete
+  ☐ Retrospect
+
+  ☐ Additions

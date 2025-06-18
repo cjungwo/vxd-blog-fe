@@ -1,5 +1,5 @@
-import { posts } from "@/entities";
 import { ResponseDto } from "@/shared";
+import { prisma } from "@/shared";
 
 export async function deletePost(id: string) {
   // Validation Guard
@@ -13,7 +13,7 @@ export async function deletePost(id: string) {
   }
 
   // Business Logic
-  const post = posts.find((post) => post.id === id);
+  const post = await prisma.post.findUnique({ where: { id } });
 
   if (!post) {
     return {
@@ -24,23 +24,13 @@ export async function deletePost(id: string) {
     } as ResponseDto;
   }
 
-  posts.splice(posts.indexOf(post), 1);
-
-  // Result Checking
-  if (posts.indexOf(post) !== -1) {
-    return {
-      status: 400,
-      data: {
-        message: "Failed to delete post",
-      }
-    } as ResponseDto;
-  }
+  await prisma.post.delete({ where: { id } });
 
   // Create Response
   const result: ResponseDto = {
     status: 200,
     data: {
-      message: "Post deleted successfully",
+      id: post.id,
     }
   };
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { CreatePostDto } from '@/entities';
+import { CreatePostDto, User } from '@/entities';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,16 @@ interface Props {
 export const CreatePostForm = (props: Props) => {
   const router = useRouter();
 
-  const user = "Unknown Author";
+  // TODO: Get user from auth
+  const user: User = {
+    id: "1",
+    name: "Unknown Author",
+    email: "unknown@unknown.com",
+    hash: "unknown",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  };
+
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -33,7 +42,7 @@ export const CreatePostForm = (props: Props) => {
     const post: CreatePostDto = {
       title,
       content,
-      author: user
+      author: user.id
     };
 
     fetch('/api/v1/posts', {

@@ -1,5 +1,4 @@
-import { posts } from "@/entities";
-import { ResponseDto } from "@/shared";
+import { ResponseDto, prisma } from "@/shared";
 
 export async function findPostById(id: string) {
   // Validation Guard
@@ -13,7 +12,7 @@ export async function findPostById(id: string) {
   }
 
   // Business Logic
-  const post = posts.find((post) => post.id === id);
+  const post = await prisma.post.findUnique({ where: { id } });
 
   if (!post) {
     return {

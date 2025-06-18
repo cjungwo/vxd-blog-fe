@@ -1,10 +1,17 @@
 import { format } from 'date-fns';
-import { posts } from "@/entities";
 import { PostProps } from "@/shared";
+import { baseUrl } from "@/shared";
 
 export default async function PostPage({ params }: PostProps) {
   const postId = (await params)['post-id'];
-  const post = posts.find((post) => post.id === postId);
+
+  const post = await fetch(`${baseUrl}/api/v1/posts/${postId}`)
+    .then(response => response.json())
+    .then(data => data.data.post)
+    .catch(error => {
+      console.error('Error fetching post:', error);
+      throw error;
+    });
 
   if (!post) {
     throw new Error('Post not found');
@@ -26,7 +33,7 @@ export default async function PostPage({ params }: PostProps) {
         
         <div className="prose lg:prose-lg">
           <p className="text-lg leading-relaxed mb-6">
-            {post.content.split('\n').map((paragraph, i) => (
+            {post.content.split('\n').map((paragraph: string, i: number) => (
               <span key={i}>
                 {paragraph}
                 <br />

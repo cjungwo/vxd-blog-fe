@@ -1,6 +1,9 @@
-import { CreateUserDto, User, users } from "@/entities";
+import { CreateUserDto, User } from "@/entities";
 import { generateId, ResponseDto } from "@/shared";
 import bcrypt from "bcryptjs";
+import { prisma } from "@/shared";
+import { Prisma } from "@/generated/prisma";
+
 
 export async function createUser(dto: CreateUserDto) {
   const { name, email, password } = dto;
@@ -15,7 +18,7 @@ export async function createUser(dto: CreateUserDto) {
     } as ResponseDto;
   }
 
-  const user = users.find((user) => user.email === email);
+  const user = await prisma.user.findUnique({ where: { email } });
 
   if (user) {
     return {
@@ -38,12 +41,7 @@ export async function createUser(dto: CreateUserDto) {
     updatedAt: new Date().toISOString(),
   };
 
-  users.push(newUser);
-
-  console.log(users);
-
-  // Result Checking
-  const createdUser = users.find((user) => user.id === newUser.id);
+  const createdUser: Prisma.UserCreateInput = await prisma.user.create({ data: newUser });
 
   if (!createdUser) {
     return {
@@ -58,7 +56,7 @@ export async function createUser(dto: CreateUserDto) {
   const result: ResponseDto = {
       status: 201,
       data: {
-          id: createdUser.id,
+          user: createdUser,
       }
   };
 

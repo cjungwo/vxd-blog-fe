@@ -1,14 +1,14 @@
 import bcrypt from "bcryptjs";
 
-import { users } from "@/entities";
 import { ResponseDto } from "@/shared";
 import { generateToken } from "../generator/token.generator";
+import { prisma } from "@/shared";
+import { User } from "@/entities";
 
 export const signIn = async (email: string, password: string) => {
-  console.log(users);
 
   // Authentication
-  const user = users.find((user) => user.email === email);
+  const user: User = await prisma.user.findUnique({ where: { email } }) as User;
 
   if (!user) {
     return {
