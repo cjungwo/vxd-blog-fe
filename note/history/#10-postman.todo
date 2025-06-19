@@ -1,0 +1,43 @@
+#10-postman:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    Postman
+    : Postman is used to test API
+
+    Auth, User, Post, Seed
+
+    Auth
+    - signIn
+    - signUp
+
+    User
+    - createUser
+    - findAllUser
+    - findOneUser
+    - updateUser
+    - deleteUser
+
+    Post
+    - createPost
+    - findAllPost
+    - findOnePost
+    - updatePost
+    - deletePost
+
+    Seed
+    - signInUser
+    - signUpUser
+    - signInAdmin
+    - signUpAdmin
+    - createPost
+
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+
+  ☐ Work List: @must @could @should @won't
+    ✔ Auth @started(25-06-19 13:52) @done(25-06-19 13:58) @lasted(6m21s)
+    ✔ User @started(25-06-19 13:58) @done(25-06-19 14:02) @lasted(4m27s)
+    ✔ Post @started(25-06-19 14:02) @done(25-06-19 14:09) @lasted(7m38s)
+    ✔ Seed @started(25-06-19 14:09) @done(25-06-19 14:10) @lasted(1m45s)
+  ☐ Retrospect
+
+  ☐ Additions
