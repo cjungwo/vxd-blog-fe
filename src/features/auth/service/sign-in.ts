@@ -8,7 +8,7 @@ import { User } from "@/entities";
 export const signIn = async (email: string, password: string) => {
 
   // Authentication
-  const user: User = await prisma.user.findUnique({ where: { email } }) as User;
+  const user: User | null = await prisma.user.findUnique({ where: { email } });
 
   if (!user) {
     return {

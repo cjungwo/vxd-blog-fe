@@ -1,3 +1,4 @@
+import { CreateUserDto } from "@/entities";
 import { signUp, authGuard, basicTokenPipe } from "@/features";
 import { ResponseDto } from "@/shared";
 import { NextRequest } from "next/server";
@@ -18,7 +19,14 @@ export async function POST(req: NextRequest) {
   
   const { email, password } = authToken;
 
-  const result = await signUp(email, password, body.name);
+  const dto: CreateUserDto = {
+    name: body.name,
+    email,
+    password,
+    role: body.role,
+  }
+
+  const result = await signUp(dto);
 
   return Response.json(result);
 }

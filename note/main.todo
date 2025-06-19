@@ -11,9 +11,11 @@ Task:
     ✔ Create Post Page @started(25-06-10 16:02) @done(25-06-10 16:48) @lasted(46m9s)
     ✔ Add SubNav @started(25-06-10 17:23) @done(25-06-10 17:44) @lasted(21m11s)
     ☐ Post API @started(25-06-11 15:45) @done(25-06-11 17:50) @lasted(2h5m15s)
-    ☐ Sign In Page
-    ☐ Sign Up Page
-    ☐ User API
+    ✔ Sign In Page @started(25-06-19 10:24) @done(25-06-19 10:24) @lasted(25s)
+    ✔ Sign Up Page @started(25-06-19 10:24) @done(25-06-19 10:24) @lasted(28s)
+    ✔ User API @started(25-06-19 10:24) @done(25-06-19 10:24) @lasted(47s)
+    ☐ Prisma DB @started(25-06-19 10:24)
+    ☐ Postman 
     ☐ Project Deploy
     ☐ Github Actions
     ☐ Improve CSS

@@ -1,15 +1,15 @@
-import { CreateUserDto, User } from "@/entities";
-import { generateId, ResponseDto } from "@/shared";
+import { CreateUserDto } from "@/entities";
+import { ResponseDto } from "@/shared";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/shared";
-import { Prisma } from "@/generated/prisma";
+import { Prisma, Role } from "@/generated/prisma";
 
 
 export async function createUser(dto: CreateUserDto) {
-  const { name, email, password } = dto;
+  const { name, email, password, role } = dto;
 
   // Validation Guard
-  if (!name.trim() || !email.trim() || !password.trim()) {
+  if (!name.trim() || !email.trim() || !password.trim() ) {
     return {
       status: 400,
       data: {
@@ -32,16 +32,9 @@ export async function createUser(dto: CreateUserDto) {
   // Business Logic
   const hash = await bcrypt.hash(password, 10);
 
-  const newUser: User = {
-    id: generateId("U"),
-    name,
-    email,
-    hash,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
+  const userRole = role === "ADMIN" ? Role.ADMIN : Role.USER;
 
-  const createdUser: Prisma.UserCreateInput = await prisma.user.create({ data: newUser });
+  const createdUser: Prisma.UserCreateInput = await prisma.user.create({ data: { name, email, hash, role: userRole } });
 
   if (!createdUser) {
     return {

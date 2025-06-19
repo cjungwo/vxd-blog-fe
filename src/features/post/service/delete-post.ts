@@ -1,9 +1,10 @@
+import { DeletePostDto } from "@/entities";
 import { ResponseDto } from "@/shared";
 import { prisma } from "@/shared";
 
-export async function deletePost(id: string) {
+export async function deletePost(dto: DeletePostDto) {
   // Validation Guard
-  if (!id) {
+  if (!dto.id) {
     return {
       status: 400,
       data: {
@@ -13,7 +14,7 @@ export async function deletePost(id: string) {
   }
 
   // Business Logic
-  const post = await prisma.post.findUnique({ where: { id } });
+  const post = await prisma.post.findUnique({ where: { id: dto.id } });
 
   if (!post) {
     return {
@@ -24,7 +25,7 @@ export async function deletePost(id: string) {
     } as ResponseDto;
   }
 
-  await prisma.post.delete({ where: { id } });
+  await prisma.post.delete({ where: { id: post.id } });
 
   // Create Response
   const result: ResponseDto = {

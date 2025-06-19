@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 export const generateToken = (user: User, isRefreshToken: boolean) => {
   const token = {
     sub: user.id,
+    role: user.role,
     type: isRefreshToken ? 'refresh' : 'access',
   }
 

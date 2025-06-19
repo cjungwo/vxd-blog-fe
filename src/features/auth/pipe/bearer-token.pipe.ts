@@ -1,3 +1,6 @@
+import jwt from "jsonwebtoken";
+import { ResponseDto } from "@/shared";
+
 export const bearerTokenPipe = (rawToken: string) => {
   const bearerSplit = rawToken.split(' ');
 
@@ -6,7 +9,7 @@ export const bearerTokenPipe = (rawToken: string) => {
     data: {
       message: "Unauthorized token"
     }
-  };
+  } as ResponseDto;
 
   const [bearer, token] = bearerSplit;
 
@@ -15,7 +18,16 @@ export const bearerTokenPipe = (rawToken: string) => {
     data: {
       message: "Unauthorized token"
     }
-  };
+  } as ResponseDto;
 
-  return token;
+  const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!);
+
+  if (!decodedToken) return {
+    status: 401,
+    data: {
+      message: "Unauthorized token"
+    }
+  } as ResponseDto;
+
+  return decodedToken;
 }

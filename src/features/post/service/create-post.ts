@@ -1,11 +1,10 @@
-import { CreatePostDto } from "@/entities";
+import { Post } from "@/entities";
 import { ResponseDto } from "@/shared/dto/response.dto";
 import { prisma } from "@/shared";
-import { Prisma } from "@/generated/prisma";
 
-export async function createPost(dto: CreatePostDto) {
+export async function createPost({ title, content, sub }: { title: string, content: string, sub: string }) {
   // Validation Guard
-  if (!dto.title || !dto.content || !dto.author) {
+  if (!title || !content || !sub) {
     return {
       status: 400,
       data: {
@@ -14,12 +13,27 @@ export async function createPost(dto: CreatePostDto) {
     } as ResponseDto;
   }
 
+  const user = await prisma.user.findUnique({ where: { id: sub } });
+
+  if (!user) {
+    return {
+      status: 404,
+      data: {
+        message: "User not found",
+      }
+    } as ResponseDto;
+  }
+
   // Business Logic
-  const newPost: Prisma.PostCreateInput = await prisma.post.create({
+  const newPost: Post = await prisma.post.create({
     data: {
-      title: dto.title,
-      content: dto.content,
-      author: dto.author,
+      title,
+      content,
+      author: {
+        connect: {
+          id: sub,
+        },
+      },
     }
   });
 
@@ -36,7 +50,7 @@ export async function createPost(dto: CreatePostDto) {
   const result: ResponseDto = {
       status: 201,
       data: {
-          id: newPost.id,
+        post: newPost,
       }
   };
 

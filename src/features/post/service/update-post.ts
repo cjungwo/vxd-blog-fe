@@ -25,23 +25,13 @@ export async function updatePost(dto: UpdatePostDto) {
     } as ResponseDto;
   }
 
-  if (dto.title) {
-    post.title = dto.title;
-  }
-
-  if (dto.content) {
-    post.content = dto.content;
-  }
-
-  if (dto.author) {
-    post.author = dto.author;
-  }
+  const updatedPost = await prisma.post.update({ where: { id: post.id }, data: { title: dto.title, content: dto.content } });
 
   // Create Response
   const result: ResponseDto = {
     status: 200,
     data: {
-      post: post,
+      post: updatedPost,
     }
   };
 

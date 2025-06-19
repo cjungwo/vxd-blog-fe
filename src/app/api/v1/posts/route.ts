@@ -1,5 +1,6 @@
 import { CreatePostDto } from "@/entities";
-import { findAllPosts, createPost } from "@/features";
+import { findAllPosts, createPost, authGuard, bearerTokenPipe } from "@/features";
+import { ResponseDto } from "@/shared";
 import { NextRequest } from "next/server";
 
 export async function GET() {
@@ -8,9 +9,19 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-    const dto: CreatePostDto = await request.json();
+    const body: CreatePostDto = await request.json();
 
-    const result = await createPost(dto);
+    const token = authGuard(request);
+
+    if (token instanceof ResponseDto) return Response.json(token);
+
+    const authToken = bearerTokenPipe(token);
+
+    if (authToken instanceof ResponseDto) return Response.json(authToken);
+
+    const { sub } = authToken as { sub: string };
+
+    const result = await createPost({ ...body, sub });
 
     return Response.json(result);
 }

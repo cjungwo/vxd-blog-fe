@@ -1,5 +1,6 @@
+import { CreateUserDto } from "@/entities";
 import { createUser } from "@/features/user";
 
-export const signUp = async (email: string, password: string, name: string) => {
-  return createUser({ email, password, name });
+export const signUp = async (dto: CreateUserDto) => {
+  return createUser(dto);
 };
