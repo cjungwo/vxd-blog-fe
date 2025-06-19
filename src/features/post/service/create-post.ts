@@ -1,6 +1,6 @@
-import { Post } from "@/entities";
 import { ResponseDto } from "@/shared/dto/response.dto";
 import { prisma } from "@/shared";
+import { Post } from "@/generated/prisma";
 
 export async function createPost({ title, content, sub }: { title: string, content: string, sub: string }) {
   // Validation Guard

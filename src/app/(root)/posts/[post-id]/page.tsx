@@ -1,11 +1,12 @@
 import { format } from 'date-fns';
-import { PostProps } from "@/shared";
+import { PostProps, SubNav } from "@/shared";
 import { baseUrl } from "@/shared";
+import { Post } from '@/entities';
 
 export default async function PostPage({ params }: PostProps) {
   const postId = (await params)['post-id'];
 
-  const post = await fetch(`${baseUrl}/api/v1/posts/${postId}`)
+  const post: Post = await fetch(`${baseUrl}/api/v1/posts/${postId}`)
     .then(response => response.json())
     .then(data => data.data.post)
     .catch(error => {
@@ -17,17 +18,19 @@ export default async function PostPage({ params }: PostProps) {
     throw new Error('Post not found');
   }
 
-  const formattedDate = format(new Date(post.createdAt), 'yyyy-MM-dd');
+  const formattedDate = format(post.createdAt, 'yyyy-MM-dd');
 
   return (
-    <div className="my-4 ">
-      <article>
-        <header className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-          <div className="flex text-gray-600 text-sm">
-            <span>{post.author}</span>
+    <div>
+      <SubNav title={post.title} className="py-4" />
+      <div className="my-4">
+        <article>
+          <header className="mb-12">
+            <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+            <div className="flex text-gray-600 text-sm">
+            <span>{post.author?.name}</span>
             <span className="mx-2">·</span>
-            <time dateTime={post.createdAt}>{formattedDate}</time>
+            <time dateTime={formattedDate}> {formattedDate}</time>
           </div>
         </header>
         
@@ -45,15 +48,16 @@ export default async function PostPage({ params }: PostProps) {
         <footer className="mt-16 pt-6 border-t border-gray-200">
           <div className="flex items-center">
             <div className="h-12 w-12 rounded-full bg-gray-200 flex items-center justify-center text-xl font-medium mr-4">
-              {post.author.charAt(0).toUpperCase()}
+              {post.author?.name.charAt(0).toUpperCase()}
             </div>
             <div>
-              <p className="font-medium">{post.author}</p>
+              <p className="font-medium">{post.author?.name}</p>
               <p className="text-sm text-gray-600">Author</p>
             </div>
           </div>
         </footer>
       </article>
     </div>
+  </div>
   );
 }

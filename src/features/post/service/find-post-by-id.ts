@@ -12,7 +12,16 @@ export async function findPostById(id: string) {
   }
 
   // Business Logic
-  const post = await prisma.post.findUnique({ where: { id } });
+  const post = await prisma.post.findUnique({
+    where: { id }, 
+    include: { 
+      author: {
+        select: {
+          name: true,
+        },
+      } 
+    }
+  });
 
   if (!post) {
     return {

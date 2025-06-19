@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 
 interface Props {
   className?: string;
+  title?: string;
 }
 
 export const SubNav = (props: Props) => {
@@ -15,7 +16,7 @@ export const SubNav = (props: Props) => {
   const isPostDetailPage = pathname?.startsWith("/posts/");
 
   return <div className={clsx(props.className, "flex items-center justify-between")}>
-    <Breadcrumb pathname={pathname} />
+    <Breadcrumb pathname={pathname} title={props.title} />
 
     {isHomePage ? <CreatePostBtn /> : isPostDetailPage ? <UpdatePostBtn /> : null}
   </div>;

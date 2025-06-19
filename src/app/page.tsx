@@ -1,9 +1,11 @@
 import { PostList } from "@/widgets";
+import { SubNav } from "@/shared";
 
 export default async function Home() {
    return (
-      <div className="py-4">
+      <>
+         <SubNav className="py-4" />
          <PostList />
-      </div>
+      </>
    );
 };
