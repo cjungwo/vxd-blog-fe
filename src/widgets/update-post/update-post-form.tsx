@@ -17,7 +17,6 @@ export const UpdatePostForm = (props: Props) => {
 
   const id = params['post-id']?.toString();
 
-  const user = "Unknown Author";
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -37,13 +36,13 @@ export const UpdatePostForm = (props: Props) => {
       id: id!,
       title,
       content,
-      author: user
     };
 
     fetch(`/api/v1/posts/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
       },
       body: JSON.stringify(post),
     })

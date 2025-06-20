@@ -17,6 +17,7 @@
       - name
       - email
       - hash
+      - role
       - createdAt
       - updatedAt
       - posts

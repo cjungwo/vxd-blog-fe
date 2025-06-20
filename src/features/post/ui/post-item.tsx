@@ -36,10 +36,10 @@ export const PostItem = ({ className, post }: Props) => {
         <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-sm font-medium text-gray-600 dark:text-gray-300">
-              {post.authorId.charAt(0).toUpperCase() || 'U'}
+              {post.author?.name.charAt(0).toUpperCase() || 'U'}
             </div>
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              {post.author || 'Unknown Author'}
+              {post.author?.name || 'Unknown Author'}
             </span>
           </div>
           

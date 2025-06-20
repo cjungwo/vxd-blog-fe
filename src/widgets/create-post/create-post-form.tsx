@@ -1,6 +1,7 @@
 "use client";
 
-import { CreatePostDto, User } from '@/entities';
+import { CreatePostDto } from '@/entities';
+import { useUserAuth } from '@/shared';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -14,19 +15,10 @@ interface Props {
 export const CreatePostForm = (props: Props) => {
   const router = useRouter();
 
-  // TODO: Get user from auth
-  const user: User = {
-    id: "1",
-    name: "Unknown Author",
-    email: "unknown@unknown.com",
-    hash: "unknown",
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  };
-
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [isValid, setIsValid] = useState<boolean>(false);
+  const { accessToken } = useUserAuth();
 
   useEffect(() => {
     if (!title.trim() || !content.trim()) {
@@ -41,14 +33,14 @@ export const CreatePostForm = (props: Props) => {
 
     const post: CreatePostDto = {
       title,
-      content,
-      author: user.id
+      content
     };
 
     fetch('/api/v1/posts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`,
       },
       body: JSON.stringify(post),
     })
@@ -59,7 +51,11 @@ export const CreatePostForm = (props: Props) => {
 
       return resp.json();
     })
-    .then(() => {
+    .then((data) => {
+      if (data.status !== 201) {
+        throw new Error(data.data.message);
+      }
+
       toast.success('Post created successfully!', {
         position: "top-right",
         autoClose: 2000,
@@ -76,8 +72,8 @@ export const CreatePostForm = (props: Props) => {
         }
       });
     })
-    .catch(() => {
-      toast.error('Error creating post. Please try again.', {
+    .catch((error) => {
+      toast.error(error.message, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

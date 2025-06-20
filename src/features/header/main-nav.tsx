@@ -8,7 +8,7 @@ interface Props {
 
 export const MainNav = (props: Props) => {
   return <nav className={clsx(props.className)}>
-    <ul className="flex gap-4">
+    <ul className="flex gap-6">
       {paths.filter((path) => path.group?.includes('main')).map((path) => (
         <div key={path.name}>
           <Link href={path.path} className="text-white hover:text-gray-200">

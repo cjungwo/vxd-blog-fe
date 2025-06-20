@@ -25,6 +25,5 @@ export const PostList = (props: Props) => {
     {sortPostsByDate(posts).map((post: Post) => (
       <PostItem className='mb-4' key={post.id} post={post} />
     ))}
-
   </div>;
 };

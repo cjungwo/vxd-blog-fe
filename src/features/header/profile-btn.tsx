@@ -7,7 +7,7 @@ interface Props {
    className?: string;
 }
 
-export const AvatarBtn = (props: Props) => {
+export const ProfileBtn = (props: Props) => {
    return <div className={clsx(props.className)}>
       <button>
         <Link href="/profile">

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { useUserAuth } from '@/shared';
 
 interface Props {
   className?: string;
@@ -13,6 +14,7 @@ export const SignInForm = (props: Props) => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setAuthTokens } = useUserAuth();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,8 +44,10 @@ export const SignInForm = (props: Props) => {
 
       const { accessToken, refreshToken } = json.data;
 
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      setAuthTokens({ 
+        accessToken: accessToken, 
+        refreshToken: refreshToken 
+      });
 
       toast.success('User signed in successfully!', {
         position: "top-right",

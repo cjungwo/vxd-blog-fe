@@ -1,5 +1,5 @@
 import { PostList } from "@/widgets";
-import { SubNav } from "@/shared";
+import { SubNav } from "@/widgets";
 
 export default async function Home() {
    return (

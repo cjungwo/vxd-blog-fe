@@ -1,20 +1,20 @@
 "use client";
 
-import { MainNav, AuthBtn, AvatarBtn, Title } from '@/features';
+import { AuthBtn, MainNav, Title, ThemeBtn } from '@/features';
 import clsx from 'clsx';
-
-import { useState } from 'react';
 
 interface Props {
   className?: string;
 }
 
 export const Header = (props: Props) => {
-  const [isSignIn] = useState(false);
 
   return <div className={clsx(props.className, 'flex justify-between items-center')}>
     <Title />
     <MainNav />
-    {isSignIn ? <AvatarBtn /> : <AuthBtn />}
+    <div className="flex items-center space-x-8">
+      <ThemeBtn />
+      <AuthBtn />
+    </div>
   </div>;
 };
