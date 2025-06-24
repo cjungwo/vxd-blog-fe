@@ -1,10 +1,10 @@
 import { ResponseDto } from "@/shared";
-import { prisma } from "@/shared";
+import { findUserById } from "@/entities/user";
 import { User } from "@/generated/prisma";
 
 export async function authenticate(sub: string): Promise<User | ResponseDto> {
-  const user = await prisma.user.findUnique({ where: { id: sub } });
-
+  const user = await findUserById(sub);
+  
   if (!user) {
     return {
       status: 401,

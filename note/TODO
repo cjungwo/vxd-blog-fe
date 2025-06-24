@@ -1,0 +1,48 @@
+#11-auth:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    Apply Auth to services and API
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    Auth Provider
+    Auth Context
+    useUserAuth
+
+    RBAC
+    Refresh Token Request API
+
+    UI
+    - SignIn
+    - Header
+    - PostDetail
+    - Profile
+
+  ☐ Work List: @must @could @should @won't
+    ✔ Auth Provider @started(25-06-20 08:34) @done(25-06-20 08:34) @lasted(35s)
+    ✔ Auth Context @started(25-06-20 08:34) @done(25-06-20 08:34) @lasted(37s)
+    ✔ useUserAuth @started(25-06-20 08:34) @done(25-06-20 08:34) @lasted(39s)
+
+    ☐ RBAC
+    ☐ Refresh Token Request API
+
+    ☐ UI
+      ✔ SignIn @started(25-06-20 08:34) @done(25-06-20 08:34) @lasted(43s)
+
+      ✔ Header @started(25-06-20 08:34) @done(25-06-20 12:27) @lasted(3h53m8s)
+        ✔ add AuthProvider @started(25-06-20 12:27) @done(25-06-20 12:27) @lasted(3s)
+        ✔ add ThemeBtn @started(25-06-20 12:27) @done(25-06-20 12:27) @lasted(5s)
+
+      ☐ PostDetail
+        ✔ add PostManageBtn @started(25-06-20 12:27) @done(25-06-20 13:06) @lasted(39m32s)
+
+      ☐ Profile
+        ✔ add ProfileBtn @started(25-06-20 12:27) @done(25-06-20 12:27) @lasted(37s)
+        ☐ ProfilePage
+          ☐ logout
+          ☐ updateProfile
+          ☐ deleteProfile
+          ☐ userPostList
+
+  ☐ Retrospect
+
+  ☐ Additions
+    folder organization - shared/ui -> widgets => shared/ui = design system

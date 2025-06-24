@@ -1,6 +1,6 @@
-import { CreateUserDto } from "@/entities";
-import { signUp, authGuard, basicTokenPipe } from "@/features";
-import { ResponseDto } from "@/shared";
+import { CreateUserDto } from "@entities/user";
+import { signUp, authGuard, basicTokenPipe } from "@entities/auth";
+import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
 
 export async function GET() {

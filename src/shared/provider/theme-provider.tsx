@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useState, useEffect } from "react";
-import { Theme } from "../enum";
+import { Theme } from "../model";
 
 type ThemeContextType = {
   theme: Theme;

@@ -1,4 +1,4 @@
-import { ResponseDto } from "@/shared/dto/response.dto";
+import { ResponseDto } from "@shared/model";
 import { prisma } from "@/shared";
 import { Post } from "@/generated/prisma";
 

@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen mx-4">
+      <body suppressHydrationWarning className="antialiased min-h-screen mx-4">
       <ThemeProvider>
         <AuthProvider>  
           <Header className="pt-4" />

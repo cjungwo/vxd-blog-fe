@@ -1,5 +1,5 @@
 import { moonIcon, sunIcon, useTheme } from '@/shared';
-import { Theme } from '@/shared/enum';
+import { Theme } from '@/shared/model';
 import clsx from 'clsx';
 
 interface Props {

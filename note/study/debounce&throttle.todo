@@ -1,0 +1,22 @@
+# Debounce & Throttle
+
+## Debounce
+Waits for a certain amount of time (delay) after the last event call, and then executes the function only once.
+Examples:
+  - Search input box: Waits until the user finishes typing and then calls the API
+  - Window resize: Executes the function only once after the user finishes resizing the window
+  - Auto-save feature: Saves the data only when the user stops typing
+
+## Throttle
+Limits the number of times a function can be called within a certain time period (interval).
+Examples:
+  - Scroll event handling: Executes the function at a certain interval while scrolling
+  - GPS location tracking: Limits the number of location updates while tracking
+  - Mouse movement handling: Limits the number of drag and move events
+
+### Item: Debounce | Throttle
+Execution: After the last call, waits for a certain time and then executes | Executes the function at a certain interval
+Continuous: Executes the function only once | Executes the function at a certain interval
+Main purpose: Completely prevent excessive calls | Limit excessive calls to a certain interval
+Real-time responsiveness: Low (waits until the user stops) | High (responds at a certain interval)
+Implementation difficulty: Low | Medium
