@@ -83,11 +83,19 @@ export const SignInForm = (props: Props) => {
       pauseOnHover
       theme="light"
     />
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2 p-4 w-full ">
+    <form 
+      onSubmit={handleSubmit} 
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          handleSubmit(e);
+        }
+      }}
+      className="flex flex-col gap-2 p-4 w-full "
+    >
       <label htmlFor="email" className='w-0 h-0 opacity-0'>Email</label>
-      <input type="email" name="email" id="email" placeholder="Email" className="w-full border border-gray-300 rounded px-2 py-1 mb-2 text-black" value={email} autoComplete="current-email" onChange={(e) => setEmail(e.target.value)} />
+      <input type="email" name="email" id="email" placeholder="Email" className="w-full border border-gray-300 rounded px-2 py-1 mb-2 text-black" value={email} autoComplete="current-email" onChange={(e) => setEmail(e.target.value)} required />
       <label htmlFor="password" className='w-0 h-0 opacity-0'>Password</label>
-      <input className="w-full border border-gray-300 rounded px-2 py-1 mb-2 text-black" type="password" name="password" id="password" placeholder="Password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <input className="w-full border border-gray-300 rounded px-2 py-1 mb-2 text-black" type="password" name="password" id="password" placeholder="Password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
       <button type="submit" className="w-full bg-blue-500 text-white mt-2 px-4 py-2 rounded">Sign In</button>
     </form>
   </div>;

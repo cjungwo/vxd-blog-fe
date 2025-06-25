@@ -11,7 +11,7 @@ export const ThemeBtn = (props: Props) => {
   
   return <div className={clsx(props.className)}>
     <button onClick={changeTheme}>
-      {theme === Theme.LIGHT ? sunIcon : moonIcon}
+      {theme === Theme.LIGHT ? moonIcon : sunIcon}
     </button>
   </div>;
 };

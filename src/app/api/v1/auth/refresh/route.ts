@@ -3,7 +3,7 @@ import { authenticate, authGuard, bearerTokenPipe, generateToken, tokenVerifyPip
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const token = authGuard(req);
 
   if (token instanceof ResponseDto) return Response.json(token);
@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
 
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const refreshToken = tokenVerifyPipe(authToken, true);
+  const refreshToken = await tokenVerifyPipe(authToken, true);
 
   if (refreshToken instanceof ResponseDto) return Response.json(refreshToken);
 

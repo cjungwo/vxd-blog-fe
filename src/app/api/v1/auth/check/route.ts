@@ -1,5 +1,5 @@
-import { findUserById } from "@/entities";
-import { authenticate, authGuard, bearerTokenPipe, tokenVerifyPipe } from "@entities/auth";
+import { findUserById } from "@/entities/user";
+import { authGuard, bearerTokenPipe, tokenVerifyPipe } from "@entities/auth";
 import { ResponseDto } from "@shared/model";
 
 export async function GET(request: Request) {
@@ -11,21 +11,22 @@ export async function GET(request: Request) {
 
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const accessToken = tokenVerifyPipe(authToken);
+  const accessToken = await tokenVerifyPipe(authToken);
 
   if (accessToken instanceof ResponseDto) return Response.json(accessToken);
 
   const { sub } = accessToken as { sub: string };
+  console.log(sub);
 
   const user = await findUserById(sub);
 
   if (!user) {
-    return {
+    return Response.json({
       status: 401,
       data: {
         message: "User not authenticated",
       }
-    } as ResponseDto;
+    });
   }
 
   return Response.json({

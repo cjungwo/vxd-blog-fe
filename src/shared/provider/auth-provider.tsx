@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
   
   const [user, setUser] = useState<User | null>(null);
+
   const [loading, setLoading] = useState(true);
 
   const accessToken = useMemo(() => {
@@ -123,10 +124,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setUser(json.data.user)
             setLoading(false)
           })
+        } else {
+          setUser(json.data.user)
+          setLoading(false)
         }
-
-        setUser(json.data.user)
-        setLoading(false)
       }).catch(error => {
         console.error('ERROR: ', error);
         setUser(null)

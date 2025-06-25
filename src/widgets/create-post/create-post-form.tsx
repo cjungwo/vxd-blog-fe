@@ -4,7 +4,7 @@ import { CreatePostDto } from '@/entities';
 import { useUserAuth } from '@/shared';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,16 +17,7 @@ export const CreatePostForm = (props: Props) => {
 
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const [isValid, setIsValid] = useState<boolean>(false);
   const { accessToken } = useUserAuth();
-
-  useEffect(() => {
-    if (!title.trim() || !content.trim()) {
-      setIsValid(false);
-    } else {
-      setIsValid(true);
-    }
-  }, [title, content]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -67,7 +58,6 @@ export const CreatePostForm = (props: Props) => {
         onClose: () => {
           setTitle('');
           setContent('');
-          setIsValid(false);
           router.push('/');
         }
       });
@@ -101,15 +91,15 @@ export const CreatePostForm = (props: Props) => {
     <form className="w-3/4 border border-gray-200 p-8 rounded-md" onSubmit={handleSubmit}>
       <div className="mb-4">
         <label className="block mb-2 text-lg text-white" htmlFor="title">Title</label>
-        <input type="text" id="title" className="border w-full text-black border-gray-300 rounded-md p-2" value={title} onChange={(e) => setTitle(e.target.value)}/>
+        <input type="text" id="title" className="border w-full text-black border-gray-300 rounded-md p-2" value={title} onChange={(e) => setTitle(e.target.value)} required/>
       </div>
       <div className="mb-4">
         <label className="block mb-2 text-lg text-white" htmlFor="content">Content</label>
-        <textarea id="content" className="border w-full text-black border-gray-300 rounded-md p-2" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+        <textarea id="content" className="border w-full text-black border-gray-300 rounded-md p-2" value={content} onChange={(e) => setContent(e.target.value)} required></textarea>
       </div>
       <div className="flex justify-end">
         <button type="button" className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2" onClick={() => router.back()}>Cancel</button>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md" disabled={!isValid}>Create</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Create</button>
       </div>
     </form>
   </div>;

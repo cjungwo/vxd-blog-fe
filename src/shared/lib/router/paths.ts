@@ -36,4 +36,9 @@ export const paths: Path[] = [
     path: '/posts/create-post',
     group: 'dev',
   },
+  {
+    name: 'Profile',
+    path: '/profile',
+    group: 'dev',
+  }
 ];

@@ -21,8 +21,8 @@
     ✔ Auth Context @started(25-06-20 08:34) @done(25-06-20 08:34) @lasted(37s)
     ✔ useUserAuth @started(25-06-20 08:34) @done(25-06-20 08:34) @lasted(39s)
 
-    ☐ RBAC
-    ☐ Refresh Token Request API
+    ✔ RBAC @done(25-06-25 14:52)
+    ✔ Refresh Token Request API @done(25-06-25 14:52)
 
     ☐ UI
       ✔ SignIn @started(25-06-20 08:34) @done(25-06-20 08:34) @lasted(43s)
@@ -37,12 +37,13 @@
       ☐ Profile
         ✔ add ProfileBtn @started(25-06-20 12:27) @done(25-06-20 12:27) @lasted(37s)
         ☐ ProfilePage
-          ☐ logout
-          ☐ updateProfile
-          ☐ deleteProfile
-          ☐ userPostList
+          ✔ logout @done(25-06-24 15:45)
+          ✔ ErrorPage @done(25-06-24 15:46)
+          ✔ updateProfile @started(25-06-24 15:45) @done(25-06-24 15:56) @lasted(11m8s)
+          ✔ deleteProfile @done(25-06-24 15:56)
 
   ☐ Retrospect
 
   ☐ Additions
-    folder organization - shared/ui -> widgets => shared/ui = design system
+    - folder organization - shared/ui -> widgets => shared/ui = design system
+    - add myPosts later

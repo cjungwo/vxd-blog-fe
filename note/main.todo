@@ -25,7 +25,9 @@ Task:
   ☐ Retrospect
 
   ☐ Additions
-    add error message in ui
-    add api middleware, guard, pipe, interceptor, filter
-    add logout
+    ☐ add error message in ui
+    ☐ add api middleware, guard, pipe, interceptor, filter
+    ✔ add logout @done(25-06-25 14:51)
+    ☐ add myPosts later
+
     
