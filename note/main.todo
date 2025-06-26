@@ -16,7 +16,8 @@ Task:
     ✔ User API @started(25-06-19 10:24) @done(25-06-19 10:24) @lasted(47s)
     ✔ Prisma DB @started(25-06-19 10:24) @done(25-06-19 13:20) @lasted(2h56m3s)
     ✔ Postman @started(25-06-19 13:20) @done(25-06-19 14:11) @lasted(51m7s)
-    ☐ Auth Service @started(25-06-20 08:34)
+    ✔ Auth Service @started(25-06-20 08:34) @done(25-06-25 14:52) @lasted(5d6h18m55s)
+    ☐ DB Migration @started(25-06-25 14:52)
     ☐ Project Deploy
     ☐ Github Actions
     ☐ Improve CSS

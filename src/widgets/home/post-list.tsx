@@ -17,6 +17,10 @@ export const PostList = (props: Props) => {
     fetch('/api/v1/posts')
     .then((resp) => resp.json())
     .then((json) => {
+      if (json.status !== 200) {
+        throw new Error(json.data.message);
+      }
+
       setPosts(json.data.posts);
     });
   }, []);

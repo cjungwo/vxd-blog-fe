@@ -9,6 +9,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
+
   const token = authGuard(req);
 
   if (token instanceof ResponseDto) return Response.json(token);
@@ -24,7 +25,7 @@ export async function POST(req: NextRequest) {
     email,
     password,
     role: body.role,
-  }
+  };
 
   const result = await signUp(dto);
 

@@ -1,14 +1,13 @@
 import clsx from "clsx";
 import Link from "next/link";
-import { Post } from "@/entities";
 
 interface Props {
   className?: string;
-  post: Post;
+  postId: string;
 }
 
 export const UpdatePostBtn = (props: Props) => {
   return <div className={clsx(props.className)}>
-    <Link href={`/posts/${props.post.id}/update`}>Update</Link>
+    <Link href={`/posts/${props.postId}/update`}>Update</Link>
   </div>;
 };

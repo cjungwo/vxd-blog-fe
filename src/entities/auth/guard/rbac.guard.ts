@@ -1,9 +1,13 @@
 import { ResponseDto } from "@/shared";
 import { Role } from "@/generated/prisma";
 
-export async function rbacGuard(role: Role, authenticatableRole: Role): Promise<ResponseDto | boolean> {
+export async function rbacGuard(role: Role, authenticatableRole: Role | Role[]): Promise<ResponseDto | boolean> {
 
-  if (role !== authenticatableRole) {
+  if (typeof authenticatableRole === 'string') {
+    authenticatableRole = [authenticatableRole];
+  }
+
+  if (!authenticatableRole.includes(role)) {
     return {
       status: 403,
       data: {

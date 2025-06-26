@@ -1,0 +1,16 @@
+#12-DB-Migration:
+  ☐ All
+  ☐ Analysis Requirements(Statement, Goal ...)
+    PostgreSQL to Supabase
+
+  ☐ Dev Strategy(Tests, Scenarios, Priorities)
+    1. create supabase db
+    2. migrate data
+    
+
+  ☐ Work List: @must @could @should @won't
+    ✔ create supabase db @done(25-06-25 20:46)
+    ✔ migrate data @done(25-06-25 20:46)
+  ☐ Retrospect
+
+  ☐ Additions

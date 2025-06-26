@@ -42,7 +42,7 @@ export default async function PostPage({ params }: PostProps) {
                 <span className="mx-2">·</span>
                 <span className="font-medium mr-1">{1}</span> views
               </div>
-              <PostManageBtn post={post} className="flex justify-end items-center" />
+              <PostManageBtn postId={post.id} className="flex justify-end items-center" />
             </div>
           </header>
         

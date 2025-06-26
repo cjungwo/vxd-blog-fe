@@ -1,7 +1,9 @@
 import { UpdateUserDto } from "@/entities";
-import { authenticate, authGuard, bearerTokenPipe, compareAuthorUser, deleteUser, findUserById, rbacGuard, updateUser } from "@/features";
-import { ApiParams, ResponseDto } from "@/shared";
+import { deleteUser, findUserById, updateUser } from "@features/user";
+import { authenticate, authGuard, bearerTokenPipe, rbacGuard, tokenVerifyPipe } from "@entities/auth";
+import { ApiParams, ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
+import { compareAuthorUser } from "@/features/post";
 
 export async function GET(request: NextRequest, { params }: ApiParams) { 
   const { id } = await params;
@@ -12,7 +14,11 @@ export async function GET(request: NextRequest, { params }: ApiParams) {
   const authToken = bearerTokenPipe(token);
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const { sub } = authToken as { sub: string };
+  const accessToken = tokenVerifyPipe(authToken);
+  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+
+  const { sub } = accessToken as { sub: string };
+  
   const authenticated = await authenticate(sub);
   if (authenticated instanceof ResponseDto) return Response.json(authenticated);
 
@@ -38,7 +44,11 @@ export async function PATCH(request: NextRequest, { params }: ApiParams) {
   const authToken = bearerTokenPipe(token);
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const { sub } = authToken as { sub: string };
+  const accessToken = tokenVerifyPipe(authToken);
+  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+
+  const { sub } = accessToken as { sub: string };
+
   const authenticated = await authenticate(sub);
   if (authenticated instanceof ResponseDto) return Response.json(authenticated);
 
@@ -68,7 +78,10 @@ export async function DELETE(request: NextRequest, { params }: ApiParams) {
   const authToken = bearerTokenPipe(token);
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const { sub } = authToken as { sub: string };
+  const accessToken = tokenVerifyPipe(authToken);
+  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+
+  const { sub } = accessToken as { sub: string };
   const authenticated = await authenticate(sub);
   if (authenticated instanceof ResponseDto) return Response.json(authenticated);
 

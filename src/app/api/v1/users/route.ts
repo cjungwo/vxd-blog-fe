@@ -1,6 +1,7 @@
-import { CreateUserDto } from "@/entities";
-import { authGuard, authenticate, bearerTokenPipe, createUser, findUsers, rbacGuard } from "@/features";
-import { ResponseDto } from "@/shared";
+import { CreateUserDto } from "@entities/user";
+import { authGuard, authenticate, bearerTokenPipe, rbacGuard, tokenVerifyPipe } from "@entities/auth";
+import { findUsers, createUser } from "@features/user";
+import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -9,8 +10,9 @@ export async function GET(req: NextRequest) {
 
   const authToken = bearerTokenPipe(token);
   if (authToken instanceof ResponseDto) return Response.json(authToken);
+  
+  const { sub } = JSON.parse(authToken);
 
-  const { sub } = authToken as { sub: string };
   const authenticatedUser = await authenticate(sub);
   if (authenticatedUser instanceof ResponseDto) return Response.json(authenticatedUser);
 
@@ -31,7 +33,11 @@ export async function POST(req: NextRequest) {
   const authToken = bearerTokenPipe(token);
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const { sub } = authToken as { sub: string };
+  const accessToken = tokenVerifyPipe(authToken);
+  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+
+  const { sub } = accessToken as { sub: string };
+
   const authenticatedUser = await authenticate(sub);
   if (authenticatedUser instanceof ResponseDto) return Response.json(authenticatedUser);
 

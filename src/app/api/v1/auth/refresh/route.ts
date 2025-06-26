@@ -1,5 +1,5 @@
 import { User } from "@entities/user";
-import { authenticate, authGuard, bearerTokenPipe, generateToken, tokenVerifyPipe } from "@entities/auth";
+import { authenticate, authGuard, bearerTokenPipe, generateToken, tokenVerifyPipe } from "@/entities/auth";
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
 
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const refreshToken = await tokenVerifyPipe(authToken, true);
+  const refreshToken = tokenVerifyPipe(authToken, true);
 
   if (refreshToken instanceof ResponseDto) return Response.json(refreshToken);
 

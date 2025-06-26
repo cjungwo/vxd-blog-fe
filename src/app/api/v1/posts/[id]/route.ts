@@ -1,14 +1,12 @@
-import { UpdatePostDto, DeletePostDto } from "@/entities";
+import { UpdatePostDto, DeletePostDto } from "@entities/post";
 import { 
   authGuard, 
   authenticate, 
   bearerTokenPipe, 
-  deletePost, 
-  findPostById, 
-  updatePost, 
-  compareAuthorUser, 
-  rbacGuard
-} from "@/features";
+  rbacGuard,
+  tokenVerifyPipe,
+} from "@entities/auth";
+import { findPostById, updatePost, deletePost, compareAuthorUser } from "@features/post";
 import { ApiParams, ResponseDto } from "@/shared";
 import { NextRequest } from "next/server";
 
@@ -32,7 +30,11 @@ export async function PATCH(request: NextRequest, { params }: ApiParams) {
 
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const { sub } = authToken as { sub: string };
+  const accessToken = tokenVerifyPipe(authToken);
+
+  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+
+  const { sub } = accessToken as { sub: string };
 
   const authenticated = await authenticate(sub);
 
@@ -63,7 +65,11 @@ export async function DELETE(request: NextRequest, { params }: ApiParams) {
 
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const { sub } = authToken as { sub: string };
+  const accessToken = tokenVerifyPipe(authToken);
+
+  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+
+  const { sub } = accessToken as { sub: string };
 
   const authenticated = await authenticate(sub);
 

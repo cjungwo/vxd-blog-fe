@@ -1,4 +1,4 @@
-import { findUserById } from "@/entities/user";
+import { findUserById } from "@entities/user";
 import { authGuard, bearerTokenPipe, tokenVerifyPipe } from "@entities/auth";
 import { ResponseDto } from "@shared/model";
 
@@ -11,12 +11,11 @@ export async function GET(request: Request) {
 
   if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-  const accessToken = await tokenVerifyPipe(authToken);
+  const accessToken = tokenVerifyPipe(authToken);
 
   if (accessToken instanceof ResponseDto) return Response.json(accessToken);
 
   const { sub } = accessToken as { sub: string };
-  console.log(sub);
 
   const user = await findUserById(sub);
 

@@ -28,7 +28,7 @@ export const paths: Path[] = [
   },
   {
     name: 'Post Detail',
-    path: '/posts/P20250611203938652727',
+    path: '/posts/cmcbmv1ku0001w3mk3zf4ev4c',
     group: 'dev',
   },
   {

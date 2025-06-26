@@ -1,5 +1,5 @@
 import { CreatePostDto } from "@entities/post";
-import { bearerTokenPipe, authGuard } from "@entities/auth";
+import { bearerTokenPipe, authGuard, tokenVerifyPipe } from "@entities/auth";
 import { findAllPosts, createPost } from "@features/post/service";
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
@@ -20,7 +20,11 @@ export async function POST(request: NextRequest) {
 
     if (authToken instanceof ResponseDto) return Response.json(authToken);
 
-    const { sub } = JSON.parse(authToken);
+    const accessToken = tokenVerifyPipe(authToken);
+
+    if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+
+    const { sub } = accessToken as { sub: string };
 
     const result = await createPost({ ...body, sub });
 
