@@ -1,33 +1,44 @@
-import { CreateUserDto } from "@entities/user";
-import { signUp, authGuard, basicTokenPipe } from "@entities/auth";
-import { ResponseDto } from "@shared/model";
+import { ResponseDto } from "@/shared";
+import { AuthDto, validateBasicToken, signUp, SignUpDto } from "@entities/auth";
 import { NextRequest } from "next/server";
 
-export async function GET() {
-  return Response.json("Hello Sign Up");
-}
-
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  try {
+    const basicToken: string | null = req.headers.get('Authorization');
 
-  const token = authGuard(req);
+    if (!basicToken) {
+      throw new Error("Unauthorized token", { cause: 401 });
+    }
 
-  if (token instanceof ResponseDto) return Response.json(token);
+    const authToken: AuthDto | ResponseDto = validateBasicToken(basicToken);
+    
+    if (authToken instanceof ResponseDto) return Response.json(authToken);
+    
+    const { email, password } = authToken;
 
-  const authToken = basicTokenPipe(token);
-  
-  if (authToken instanceof ResponseDto) return Response.json(authToken);
-  
-  const { email, password } = authToken;
+    const body = await req.json();
 
-  const dto: CreateUserDto = {
-    name: body.name,
-    email,
-    password,
-    role: body.role,
-  };
+    const signUpDto: SignUpDto = new SignUpDto(email, password, body.name, body.role);
 
-  const result = await signUp(dto);
+    for (const key of Object.keys(signUpDto)) {
+      if (!signUpDto[key as keyof SignUpDto]?.trim()) {
+        throw new Error("Invalid auth info", { cause: 401 });
+      }
+    }
 
-  return Response.json(result);
+    const user = await signUp(signUpDto);
+
+    const responseDto: ResponseDto = {
+      status: 200,
+      data: {
+        user
+      }
+    };
+
+    return Response.json(responseDto);
+  } catch (error) {
+    return Response.json(new ResponseDto((error as Error).cause as number, {
+      message: (error as Error).message
+    }));
+  }
 }

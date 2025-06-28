@@ -1,37 +1,27 @@
-import { findUserById } from "@entities/user";
-import { authGuard, bearerTokenPipe, tokenVerifyPipe } from "@entities/auth";
-import { ResponseDto } from "@shared/model";
+import { checkAccessToken, validateBearerToken, verifyToken } from "@entities/auth";
+import { ResponseDto } from "@/shared";
+import { JwtPayload } from "jsonwebtoken";
 
 export async function GET(request: Request) {
-  const token = authGuard(request);
+  try {
+    const bearerToken = request.headers.get('Authorization');
 
-  if (token instanceof ResponseDto) return Response.json(token);
-
-  const authToken = bearerTokenPipe(token);
-
-  if (authToken instanceof ResponseDto) return Response.json(authToken);
-
-  const accessToken = tokenVerifyPipe(authToken);
-
-  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
-
-  const { sub } = accessToken as { sub: string };
-
-  const user = await findUserById(sub);
-
-  if (!user) {
-    return Response.json({
-      status: 401,
-      data: {
-        message: "User not authenticated",
-      }
-    });
-  }
-
-  return Response.json({
-    status: 200,
-    data: {
-      user,
+    if (!bearerToken) {
+      throw new Error("Unauthorized token format", { cause: 401 });
     }
-  });
+
+    const authToken = validateBearerToken(bearerToken);
+
+    const accessToken = verifyToken(authToken);
+
+    const user = await checkAccessToken(accessToken as JwtPayload);
+
+    return Response.json(new ResponseDto(200, {
+      user,
+    }));
+  } catch (error) {
+    return Response.json(new ResponseDto((error as Error).cause as number, {
+      message: (error as Error).message
+    }));
+  }
 }

@@ -1,28 +1,28 @@
-import { User } from "@entities/user";
-import { authenticate, authGuard, bearerTokenPipe, generateToken, tokenVerifyPipe } from "@/entities/auth";
-import { ResponseDto } from "@shared/model";
+import { validateBearerToken, refreshAccessToken } from "@entities/auth";
+import { ResponseDto } from "@/shared";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const token = authGuard(req);
+  try {
+    const bearerToken = req.headers.get('Authorization');
 
-  if (token instanceof ResponseDto) return Response.json(token);
+    if (!bearerToken) throw new Error("Unauthorized token format", { cause: 401 });
 
-  const authToken = bearerTokenPipe(token);
+    const authToken = validateBearerToken(bearerToken);
 
-  if (authToken instanceof ResponseDto) return Response.json(authToken);
+    const result = await refreshAccessToken(authToken);
 
-  const refreshToken = tokenVerifyPipe(authToken, true);
+    const responseDto: ResponseDto = {
+      status: 201,
+      data: {
+        accessToken: result,
+      }
+    };
 
-  if (refreshToken instanceof ResponseDto) return Response.json(refreshToken);
-
-  const { sub } = refreshToken as { sub: string };
-
-  const user = await authenticate(sub);
-
-  if (user instanceof ResponseDto) return Response.json(user);
-
-  const result = generateToken(user as User, true);
-
-  return Response.json(result);
+    return Response.json(responseDto);
+  } catch (error) {
+    return Response.json(new ResponseDto((error as Error).cause as number, {
+      message: (error as Error).message
+    }));
+  }
 }

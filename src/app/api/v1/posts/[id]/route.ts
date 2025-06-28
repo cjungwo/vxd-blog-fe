@@ -75,7 +75,7 @@ export async function DELETE(request: NextRequest, { params }: ApiParams) {
 
   if (authenticated instanceof ResponseDto) return Response.json(authenticated);
 
-  const isAuthorized = await rbacGuard(authenticated.role, "ADMIN");
+  const isAuthorized = rbacGuard(authenticated.role, "ADMIN");
   const isUserAuthorized = await compareAuthorUser(id, authenticated.id);
 
   if (

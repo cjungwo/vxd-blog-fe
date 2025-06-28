@@ -1,14 +1,9 @@
-import { ResponseDto } from "@/shared";
-
-export const authGuard = (req: Request): string | ResponseDto => {
+export const authGuard = (req: Request): string => {
   const token = req.headers.get('Authorization');
 
-  if (!token) return {
-    status: 401,
-    data: {
-      message: "Unauthorized token"
-    }
-  } as ResponseDto;
+  if (!token) {
+    throw new Error("Unauthorized token format", { cause: 401 });
+  }
 
   return token;
 }

@@ -1,2 +1,3 @@
-export { signUp } from "./sign-up";
-export { authenticate } from "./authenticate";
+export { validateBasicToken } from "./validate-basic-token";
+export { validateBearerToken } from "./validate-bearer-token";
+export { verifyToken } from "./verify-token";

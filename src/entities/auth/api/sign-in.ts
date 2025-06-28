@@ -1,53 +1,24 @@
-import { authGuard, basicTokenPipe, generateToken } from "@entities/auth";
-import { ResponseDto } from "@shared/model";
-import { NextRequest } from "next/server";
 import bcrypt from "bcryptjs";
-import { findUserByEmail } from "@/entities/user";
+import { findUserByEmail } from "@entities/user";
+import { generateToken } from "../generator";
+import { AuthDto } from "../model";
 
-export const signIn = async (req: NextRequest): Promise<Response> => {
-  const token = authGuard(req);
-
-  if (token instanceof ResponseDto) return Response.json(token, { status: token.status });
-
-  const authToken = basicTokenPipe(token);
-
-  if (authToken instanceof ResponseDto) return Response.json(authToken, { status: authToken.status });
-
-  const { email, password } = authToken;
-
-  return Response.json(await result(email, password));
-}
-
-const result = async (email: string, password: string): Promise<ResponseDto> => {
-  // Authentication
-  const user = await findUserByEmail(email);
+export const signIn = async (dto: AuthDto): Promise<{ accessToken: string, refreshToken: string }> => {
+  const user = await findUserByEmail(dto.email);
 
   if (!user) {
-    return {
-      status: 401,
-      data: {
-        message: "User not found",
-      }
-    } as ResponseDto;
+    throw new Error("Invalid auth info", { cause: 401 });
   }
 
-  const isPass = await bcrypt.compare(password, user.hash);
+  const isPass = await bcrypt.compare(dto.password, user.hash);
 
   if (!isPass) {
-    return {
-      status: 401,
-      data: {
-        message: "Invalid password",
-      }
-    } as ResponseDto;
+    throw new Error("Invalid auth info", { cause: 401 });
   }
 
   // Return
   return {
-    status: 200,
-    data: {
-      accessToken: generateToken(user, false),
-      refreshToken: generateToken(user, true),
-    }
-  } as ResponseDto;
+    accessToken: generateToken(user, false),
+    refreshToken: generateToken(user, true),
+  };
 };

@@ -97,15 +97,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${authState.accessToken}`,
         },
-      })
-      .then(res => {
+      }).then(res => {
         if (!res.ok) {
           throw new Error('Failed to check auth');
         }
-        
         return res.json()
-      })
-      .then(json => {
+      }).then(json => {
         if (json.status === 401 && json.data.message === 'Expired token') {
           fetch(`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/api/v1/auth/refresh`, {
             method: 'POST',

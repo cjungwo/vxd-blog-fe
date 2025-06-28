@@ -1,6 +1,6 @@
 import { CreateUserDto } from "@entities/user";
 import { authGuard, authenticate, bearerTokenPipe, rbacGuard, tokenVerifyPipe } from "@entities/auth";
-import { findUsers, createUser } from "@features/user";
+import { findUsers, createUser } from "@entities/user";
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
 
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
   const authenticatedUser = await authenticate(sub);
   if (authenticatedUser instanceof ResponseDto) return Response.json(authenticatedUser);
 
-  const isAuthorized = await rbacGuard(authenticatedUser.role, "ADMIN");
+  const isAuthorized = rbacGuard(authenticatedUser.role, "ADMIN");
   if (isAuthorized instanceof ResponseDto) return Response.json(isAuthorized);
 
   const dto: CreateUserDto = {

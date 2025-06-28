@@ -1,0 +1,26 @@
+# RBAC
+Role Based Access Control
+
+## Why
+- 역할로 접근 권한을 관리할 수 있다.
+
+## Flow
+Request -> Auth -> RBAC -> Server() -> Response
+
+## How to use
+1. 사용자 역할 부여
+2. 요청 시 역할 확인
+3. 역할에 따른 접근 권한이 필요한 요청에 한에서 확인
+4. 접근 권한이 없으면 403 Forbidden 반환
+5. 접근 권한이 있으면 로직 처리
+
+401 -> 인증 처리 실패(인증 불가)
+403 -> 권한 처리 실패(접근 거부)
+404 -> 콘텐츠 없음(콘텐츠 없음)
+500 -> 서버 오류(서버 오류)
+
+## Pseudo code
+```typescript
+  role = getRole(accessToken)
+  role === accessableRole ? return Server(request) : return 403
+```
