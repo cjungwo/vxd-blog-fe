@@ -7,7 +7,7 @@ export const updateUser = async (dto: UpdateUserDto) => {
   let hash: string | undefined;
 
   if (dto.password) {
-    hash = await bcrypt.hash(dto.password, 10);
+    hash = await bcrypt.hash(dto.password, Number(process.env.HASH_ROUNDS!));
   }
 
   const user: User | null = await prisma.user.update({

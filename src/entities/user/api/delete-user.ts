@@ -1,5 +1,5 @@
 import { prisma } from "@shared/lib";
-import { ResponseDto } from "@shared/dto";
+import { ResponseDto } from "@/shared";
 import { User } from "@/generated/prisma";
 
 export const deleteUser = async (id: string) => {
