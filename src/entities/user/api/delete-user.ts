@@ -1,27 +1,16 @@
 import { prisma } from "@shared/lib";
-import { ResponseDto } from "@/shared";
 import { User } from "@/generated/prisma";
 
-export const deleteUser = async (id: string) => {
-  const result: User | null = await prisma.user.delete({
+export const deleteUser = async (id: string): Promise<User> => {
+  const user: User | null = await prisma.user.delete({
     where: {
       id,
     },
   });
 
-  if (!result) {
-    return {
-      status: 404,
-      data: {
-        message: "User not found",
-      }
-    } as ResponseDto;
+  if (!user) {
+    throw new Error("User not found", { cause: 404 });
   }
 
-  return {
-    status: 200,
-    data: {
-      id: result.id,
-    },
-  } as ResponseDto;
+  return user;
 };

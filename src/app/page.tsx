@@ -1,7 +1,9 @@
+'use client';
+
 import { PostList } from "@/widgets";
 import { SubNav } from "@/widgets";
 
-export default async function Home() {
+export default function Home() {
    return (
       <>
          <SubNav className="py-4" />

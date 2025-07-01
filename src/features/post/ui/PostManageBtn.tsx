@@ -1,8 +1,8 @@
 "use client";
 
 import clsx from 'clsx';
-import { UpdatePostBtn } from './update-post-btn';
-import { DeletePostBtn } from './delete-post-btn';
+import { UpdatePostBtn } from './UpdatePostBtn';
+import { DeletePostBtn } from './DeletePostBtn';
 
 interface Props {
   className?: string;

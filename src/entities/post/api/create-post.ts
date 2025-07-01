@@ -1,27 +1,16 @@
-import { ResponseDto } from "@shared/model";
 import { prisma } from "@/shared";
 import { Post } from "@/generated/prisma";
 
 export async function createPost({ title, content, sub }: { title: string, content: string, sub: string }) {
   // Validation Guard
   if (!title || !content || !sub) {
-    return {
-      status: 400,
-      data: {
-        message: "Invalid post data",
-      }
-    } as ResponseDto;
+    throw new Error("Invalid post data", { cause: 400 });
   }
 
   const user = await prisma.user.findUnique({ where: { id: sub } });
 
   if (!user) {
-    return {
-      status: 404,
-      data: {
-        message: "User not found",
-      }
-    } as ResponseDto;
+    throw new Error("User not found", { cause: 404 });
   }
 
   // Business Logic
@@ -38,22 +27,8 @@ export async function createPost({ title, content, sub }: { title: string, conte
   });
 
   if (!newPost) {
-    return {
-      status: 400,
-      data: {
-        message: "Failed to create post",
-      }
-    } as ResponseDto;
+    throw new Error("Failed to create post", { cause: 400 });
   }
 
-  // Create Response
-  const result: ResponseDto = {
-      status: 201,
-      data: {
-        post: newPost,
-      }
-  };
-
-  // Return Response
-  return result;
+  return newPost;
 }

@@ -1,9 +1,9 @@
-import { prisma, ResponseDto } from "@/shared";
+import { prisma } from "@/shared";
 import { User } from "@/generated/prisma";
 import { UpdateUserDto } from "@/entities";
 import * as bcrypt from "bcryptjs";
 
-export const updateUser = async (dto: UpdateUserDto) => {
+export const updateUser = async (dto: UpdateUserDto): Promise<User> => {
   let hash: string | undefined;
 
   if (dto.password) {
@@ -23,18 +23,8 @@ export const updateUser = async (dto: UpdateUserDto) => {
   });
 
   if (!user) {
-    return {
-      status: 404,
-      data: {
-        message: "User not found",
-      }
-    } as ResponseDto;
+    throw new Error("User update failed", { cause: 400 });
   }
 
-  return {
-    status: 200,
-    data: {
-      user,
-    },
-  } as ResponseDto;
+  return user;
 };

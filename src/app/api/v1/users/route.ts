@@ -1,57 +1,89 @@
-import { CreateUserDto } from "@entities/user";
-import { authGuard, authenticate, bearerTokenPipe, rbacGuard, tokenVerifyPipe } from "@entities/auth";
-import { findUsers, createUser } from "@entities/user";
+import { CreateUserDto, findUserByEmail } from "@entities/user";
+import { authGuard, validateBearerToken, rbacGuard, verifyToken } from "@entities/auth";
+import { findUsers, createUser, findUserById } from "@entities/user";
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
+import { JwtPayload } from "jsonwebtoken";
+import { Role } from "@/generated/prisma";
 
 export async function GET(req: NextRequest) {
-  const token = authGuard(req);
-  if (token instanceof ResponseDto) return Response.json(token);
+  try {
+    const accessToken = authGuard(req);
 
-  const authToken = bearerTokenPipe(token);
-  if (authToken instanceof ResponseDto) return Response.json(authToken);
-  
-  const { sub } = JSON.parse(authToken);
+    const validatedToken = validateBearerToken(accessToken);
 
-  const authenticatedUser = await authenticate(sub);
-  if (authenticatedUser instanceof ResponseDto) return Response.json(authenticatedUser);
+    const verifiedToken = verifyToken(validatedToken);
 
-  const isAuthorized = await rbacGuard(authenticatedUser.role, "ADMIN");
-  if (isAuthorized instanceof ResponseDto) return Response.json(isAuthorized);
+    const { sub } = verifiedToken as JwtPayload;
 
-  const result: ResponseDto = await findUsers();
+    if (!sub) throw new Error("Unauthorized", { cause: 401 });
+    
+    const authenticatedUser = await findUserById(sub);
 
-  return Response.json(result);
+    const isAuthorized = rbacGuard(authenticatedUser.role, Role.ADMIN);
+    
+    if (!isAuthorized) throw new Error("User not authorized", { cause: 403 });
+
+    const users = await findUsers();
+
+    return Response.json(new ResponseDto(200, {
+      users,
+      count: users.length,
+    }));
+  } catch (error) {
+    return Response.json(new ResponseDto((error as Error).cause as number, {
+      message: (error as Error).message
+    }));
+  }
 }
 
 export async function POST(req: NextRequest) {
-  const token = authGuard(req);
-  const body = await req.json();
+  try {
+    const accessToken = authGuard(req);
 
-  if (token instanceof ResponseDto) return Response.json(token);
+    const validatedToken = validateBearerToken(accessToken);
 
-  const authToken = bearerTokenPipe(token);
-  if (authToken instanceof ResponseDto) return Response.json(authToken);
+    const verifiedToken = verifyToken(validatedToken);
 
-  const accessToken = tokenVerifyPipe(authToken);
-  if (accessToken instanceof ResponseDto) return Response.json(accessToken);
+    const { sub } = verifiedToken as JwtPayload;
 
-  const { sub } = accessToken as { sub: string };
+    if (!sub) throw new Error("Unauthorized", { cause: 401 });
+    
+    const authenticatedUser = await findUserById(sub);
 
-  const authenticatedUser = await authenticate(sub);
-  if (authenticatedUser instanceof ResponseDto) return Response.json(authenticatedUser);
+    const isAuthorized = rbacGuard(authenticatedUser.role, Role.ADMIN);
+    
+    if (!isAuthorized) throw new Error("User not authorized", { cause: 403 });
 
-  const isAuthorized = rbacGuard(authenticatedUser.role, "ADMIN");
-  if (isAuthorized instanceof ResponseDto) return Response.json(isAuthorized);
+    const body = await req.json();
 
-  const dto: CreateUserDto = {
-    name: body.name,
-    email: body.email,
-    password: body.password,
-    role: body.role,
+    for (const key of Object.keys(body)) {
+      if (!body[key as keyof typeof body]?.trim()) {
+        throw new Error("Invalid user info", { cause: 401 });
+      }
+    }
+
+    const vaildatedEmail = await findUserByEmail(body.email);
+    
+    if (vaildatedEmail) {
+      throw new Error("User already exists", { cause: 400 });
+    }
+    
+    const dto: CreateUserDto = {
+      email: body.email,
+      password: body.password,
+      name: body.name,
+      role: body.role,
+    }
+
+    const user = await createUser(dto);
+
+    return Response.json(new ResponseDto(201, {
+      user,
+    }));
+  } catch (error) {
+    return Response.json(new ResponseDto((error as Error).cause as number, {
+      message: (error as Error).message
+    }));
   }
-
-  const result = await createUser(dto);
-
-  return Response.json(result);
 }

@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import { findUserByEmail } from "@entities/user";
-import { generateToken } from "../generator";
 import { AuthDto } from "../model";
+import { generateToken } from "../service";
 
 export const signIn = async (dto: AuthDto): Promise<{ accessToken: string, refreshToken: string }> => {
   const user = await findUserByEmail(dto.email);

@@ -1,4 +1,3 @@
-import { ResponseDto } from "@/shared";
 import { prisma } from "@/shared";
 import { Post } from "@/generated/prisma";
 
@@ -9,12 +8,5 @@ export async function findAllPosts() {
         },
     });
 
-    const result: ResponseDto = {
-        status: 200,
-        data: {
-            posts: posts,
-        }
-    };
-    
-    return result;
+    return posts;
 }

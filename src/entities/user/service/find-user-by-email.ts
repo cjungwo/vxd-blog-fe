@@ -1,4 +1,4 @@
-import { User } from "../entity";
+import { User } from "@/generated/prisma";
 import { prisma } from "@/shared";
 
 export const findUserByEmail = async (email: string): Promise<User | null> => {

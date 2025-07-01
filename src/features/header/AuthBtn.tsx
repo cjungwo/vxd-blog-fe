@@ -1,8 +1,8 @@
 "use client";
 
 import clsx from 'clsx';
-import { ProfileBtn } from './profile-btn';
-import { AuthNavBtn } from './auth-nav-btn';
+import { ProfileBtn } from './ProfileBtn';
+import { AuthNavBtn } from './AuthNavBtn';
 import { useUserAuth } from '@/shared';
 
 interface Props {

@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthBtn, MainNav, Title, ThemeBtn } from '@/features';
+import { AuthBtn, MainNav, Logo, ThemeBtn } from '@/features';
 import clsx from 'clsx';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 export const Header = (props: Props) => {
 
   return <div className={clsx(props.className, 'flex justify-between items-center')}>
-    <Title />
+    <Logo />
     <MainNav />
     <div className="flex items-center space-x-8">
       <ThemeBtn />

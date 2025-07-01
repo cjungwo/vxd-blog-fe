@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const signUpDto: SignUpDto = new SignUpDto(email, password, body.name, body.role);
+    const signUpDto: SignUpDto = new SignUpDto(email, password, body.name);
 
     for (const key of Object.keys(signUpDto)) {
       if (!signUpDto[key as keyof SignUpDto]?.trim()) {

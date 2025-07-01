@@ -1,32 +1,36 @@
-import { CreatePostDto } from "@entities/post";
-import { bearerTokenPipe, authGuard, tokenVerifyPipe } from "@entities/auth";
-import { findAllPosts, createPost } from "@features/post/service";
+import { CreatePostDto, findAllPosts, createPost } from "@entities/post";
+import { authGuard, validateBearerToken, verifyToken } from "@entities/auth";
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
 
 export async function GET() {
-    const result = await findAllPosts();
-    return Response.json(result);
+    const posts = await findAllPosts();
+    return Response.json(new ResponseDto(200, {
+        posts,
+        count: posts.length,
+    }));
 }
 
 export async function POST(request: NextRequest) {
-    const body: CreatePostDto = await request.json();
+    try {
+        const body: CreatePostDto = await request.json();
 
-    const token = authGuard(request);
+        const token = authGuard(request);
 
-    if (token instanceof ResponseDto) return Response.json(token);
+        const authToken = validateBearerToken(token);
 
-    const authToken = bearerTokenPipe(token);
+        const accessToken = verifyToken(authToken);
 
-    if (authToken instanceof ResponseDto) return Response.json(authToken);
+        const { sub } = accessToken as { sub: string };
 
-    const accessToken = tokenVerifyPipe(authToken);
+        const post = await createPost({ ...body, sub });
 
-    if (accessToken instanceof ResponseDto) return Response.json(accessToken);
-
-    const { sub } = accessToken as { sub: string };
-
-    const result = await createPost({ ...body, sub });
-
-    return Response.json(result);
+        return Response.json(new ResponseDto(201, {
+            post,
+        }));
+    } catch (error) {
+        return Response.json(new ResponseDto((error as Error).cause as number, {
+            message: (error as Error).message
+        }));
+    }
 }

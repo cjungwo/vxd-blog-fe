@@ -1,1 +1,1 @@
-export { SocialBtn } from "./social-btn";
+export { SocialBtn } from "./SocialBtn";

@@ -1,13 +1,12 @@
-import { findUserById, User } from "@entities/user";
-import { generateToken } from "../generator";
-import { verifyToken } from "../utils";
+import { generateToken, verifyToken } from "../service";
+import { findUserById } from "@entities/user";
 
 export const refreshAccessToken = async (refreshToken: string) => {
   const verfiedToken = verifyToken(refreshToken, true);
 
   const { sub } = verfiedToken as { sub: string };
 
-  const user: User = await findUserById(sub);
+  const user = await findUserById(sub);
 
   const accessToken = generateToken(user, false);
 

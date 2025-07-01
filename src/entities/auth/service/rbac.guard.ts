@@ -1,19 +1,10 @@
-import { ResponseDto } from "@/shared";
 import { Role } from "@/generated/prisma";
 
-export function rbacGuard(role: Role, accessableRole: Role | Role[]): ResponseDto | boolean {
+export function rbacGuard(role: Role, accessableRole: Role | Role[]): boolean {
+  const roles = Array.isArray(accessableRole) ? accessableRole : [accessableRole];
 
-  if (!Array.isArray(accessableRole)) {
-    accessableRole = [accessableRole];
-  }
-
-  if (!accessableRole.includes(role)) {
-    return {
-      status: 403,
-      data: {
-        message: "User not authorized",
-      }
-    } as ResponseDto;
+  if (!roles.includes(role)) {
+    return false;
   }
 
   return true;

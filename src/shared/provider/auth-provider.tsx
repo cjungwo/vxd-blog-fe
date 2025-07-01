@@ -1,6 +1,6 @@
 'use client';
 
-import { User } from '@/entities';
+import { User } from '@/generated/prisma';
 import { 
   ReactNode, 
   createContext, 
