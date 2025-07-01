@@ -1,4 +1,4 @@
-import { authGuard, findUserById, validateBearerToken, verifyToken } from "@/entities";
+import { authGuard, deleteAccount, validateBearerToken, verifyToken } from "@/entities";
 import { ResponseDto } from "@/shared";
 import { NextRequest } from "next/server";
 
@@ -22,9 +22,4 @@ export async function DELETE(request: NextRequest) {
       message: (error as Error).message
     }));
   }
-}
-
-export const deleteAccount = async (sub: string) => {
-  const user = await findUserById(sub);
-  return user.id;
 }
