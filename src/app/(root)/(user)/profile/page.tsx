@@ -1,15 +1,25 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "@/shared";
 
 export default function ProfilePage() {
   const router = useRouter();
   const { clearAuth, user, accessToken } = useUserAuth();
+  const [isClient, setIsClient] = useState(false);
 
-  console.log(user);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return <div>Loading...</div>;
+  }
+
   if (!user) {
-    throw new Error("You are not logged in.");
+    router.push('/login');
+    return <div>Redirecting to login...</div>;
   }
 
   const showModal = (id: string) => {
