@@ -1,21 +1,16 @@
 import { ResponseDto } from "@/shared";
-import { AuthDto, validateBasicToken, signUp, SignUpDto } from "@entities/auth";
+import { validateBasicToken, signUp, SignUpDto, extractToken, AuthDto } from "@entities/auth";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const basicToken: string | null = req.headers.get('Authorization');
+    // 1. extract basic token
+    const authToken = extractToken(req, validateBasicToken);
+    // --end--
 
-    if (!basicToken) {
-      throw new Error("Unauthorized token", { cause: 401 });
-    }
+    const { email, password } = authToken as AuthDto;
 
-    const authToken: AuthDto | ResponseDto = validateBasicToken(basicToken);
-    
-    if (authToken instanceof ResponseDto) return Response.json(authToken);
-    
-    const { email, password } = authToken;
-
+    // 2. extract request body
     const body = await req.json();
 
     const signUpDto: SignUpDto = new SignUpDto(email, password, body.name);
@@ -26,16 +21,10 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // 3. sign up
     const user = await signUp(signUpDto);
 
-    const responseDto: ResponseDto = {
-      status: 200,
-      data: {
-        user
-      }
-    };
-
-    return Response.json(responseDto);
+    return Response.json(new ResponseDto(200, { user }));
   } catch (error) {
     return Response.json(new ResponseDto((error as Error).cause as number, {
       message: (error as Error).message

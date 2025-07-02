@@ -1,17 +1,16 @@
 import { UpdatePostDto, DeletePostDto, findPostById, updatePost, deletePost } from "@entities/post";
 import { ApiParams, ResponseDto } from "@/shared";
 import { NextRequest } from "next/server";
-import { authGuard, validateBearerToken, verifyToken } from "@/entities/auth";
+import { extractToken, validateBearerToken, verifyToken } from "@/entities/auth";
 import { userGuard } from "@/entities/user";
-import { JwtPayload } from "jsonwebtoken";
 
 export async function GET(_: NextRequest, { params }: ApiParams) { 
   try {
     const { id } = await params;
 
     const post = await findPostById(id);
-
-    return Response.json(new ResponseDto(200, {
+    
+    return Response.json(new ResponseDto(200, { 
       post,
     }));
   } catch (error) {
@@ -23,31 +22,30 @@ export async function GET(_: NextRequest, { params }: ApiParams) {
 
 export async function PATCH(request: NextRequest, { params }: ApiParams) { 
   try {
+    const authToken = extractToken(request, validateBearerToken);
+
+    const accessToken = verifyToken(authToken as string);
+
+    const { sub } = accessToken as { sub: string };
+
     const { id } = await params;
-    const body = await request.json();
 
-    const accessToken = authGuard(request);
+    const post = await findPostById(id);
 
-    const validatedToken = validateBearerToken(accessToken);
-
-    const verifiedToken = verifyToken(validatedToken);
-
-    const { sub } = verifiedToken as JwtPayload;
-
-    const isAuthorized = userGuard(id, sub!);
-
+    const isAuthorized = userGuard(post.authorId, sub!);
+    
     if (!isAuthorized) throw new Error("User not authorized", { cause: 403 });
+    
+    const body = await request.json();
 
     const dto: UpdatePostDto = {
       id,
       ...body,
     };
 
-    const post = await updatePost(dto);
+    const updatedPost = await updatePost(dto);
 
-    return Response.json(new ResponseDto(200, {
-      post,
-    }));
+    return Response.json(new ResponseDto(200, { updatedPost }));
   } catch (error) {
     return Response.json(new ResponseDto((error as Error).cause as number, {
       message: (error as Error).message
@@ -57,17 +55,17 @@ export async function PATCH(request: NextRequest, { params }: ApiParams) {
 
 export async function DELETE(request: NextRequest, { params }: ApiParams) { 
   try {
+    const authToken = extractToken(request, validateBearerToken);
+
+    const accessToken = verifyToken(authToken as string);
+
+    const { sub } = accessToken as { sub: string };
+
     const { id } = await params;
 
-    const accessToken = authGuard(request);
+    const post = await findPostById(id);
 
-    const validatedToken = validateBearerToken(accessToken);
-
-    const verifiedToken = verifyToken(validatedToken);
-
-    const { sub } = verifiedToken as JwtPayload;
-
-    const isAuthorized = userGuard(id, sub!);
+    const isAuthorized = userGuard(post.authorId, sub!);
 
     if (!isAuthorized) throw new Error("User not authorized", { cause: 403 });
 
@@ -75,9 +73,7 @@ export async function DELETE(request: NextRequest, { params }: ApiParams) {
 
     const postId = await deletePost(dto);
 
-    return Response.json(new ResponseDto(200, {
-      postId,
-    }));
+    return Response.json(new ResponseDto(200, { postId }));
   } catch (error) {
     return Response.json(new ResponseDto((error as Error).cause as number, {
       message: (error as Error).message

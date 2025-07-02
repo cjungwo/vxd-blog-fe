@@ -12,6 +12,7 @@ export const verifyToken = (token: string, isRefreshToken: boolean = false) => {
 
     return decodedToken;
   } catch (error) {
-    throw error;
+    console.log(error);
+    throw new Error("Invalid token", { cause: 401 });
   }
 }

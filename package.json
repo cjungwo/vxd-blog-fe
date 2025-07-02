@@ -10,6 +10,7 @@
     "lint": "next lint",
     "test": "vitest",
     "pwtest": "npx playwright test",
+    "export": "next export",
     "deploy": "next build && next export"
   },
   "dependencies": {

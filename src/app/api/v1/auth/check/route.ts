@@ -1,18 +1,14 @@
 import { checkAccessToken, validateBearerToken, verifyToken } from "@entities/auth";
 import { ResponseDto } from "@/shared";
 import { JwtPayload } from "jsonwebtoken";
+import { extractToken } from "@entities/auth";
+import { NextRequest } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const bearerToken = request.headers.get('Authorization');
+    const authToken = extractToken(request, validateBearerToken);
 
-    if (!bearerToken) {
-      throw new Error("Unauthorized token format", { cause: 401 });
-    }
-
-    const authToken = validateBearerToken(bearerToken);
-
-    const accessToken = verifyToken(authToken);
+    const accessToken = verifyToken(authToken as string);
 
     const user = await checkAccessToken(accessToken as JwtPayload);
 

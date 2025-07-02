@@ -1,25 +1,20 @@
 import { validateBearerToken, refreshAccessToken } from "@entities/auth";
 import { ResponseDto } from "@/shared";
+import { extractToken } from "@entities/auth";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const bearerToken = req.headers.get('Authorization');
+    // 1. extract bearer token
+    const authToken = extractToken(req, validateBearerToken);
+    // --end--
 
-    if (!bearerToken) throw new Error("Unauthorized token format", { cause: 401 });
+    // 2. refresh access token
+    const accessToken = await refreshAccessToken(authToken as string);
 
-    const authToken = validateBearerToken(bearerToken);
-
-    const result = await refreshAccessToken(authToken);
-
-    const responseDto: ResponseDto = {
-      status: 201,
-      data: {
-        accessToken: result,
-      }
-    };
-
-    return Response.json(responseDto);
+    return Response.json(new ResponseDto(200, {
+      accessToken,
+    }));
   } catch (error) {
     return Response.json(new ResponseDto((error as Error).cause as number, {
       message: (error as Error).message

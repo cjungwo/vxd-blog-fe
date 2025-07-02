@@ -1,20 +1,17 @@
 import { CreateUserDto, findUserByEmail } from "@entities/user";
-import { authGuard, validateBearerToken, rbacGuard, verifyToken } from "@entities/auth";
+import { validateBearerToken, rbacGuard, verifyToken, extractToken } from "@entities/auth";
 import { findUsers, createUser, findUserById } from "@entities/user";
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
-import { JwtPayload } from "jsonwebtoken";
 import { Role } from "@/generated/prisma";
 
 export async function GET(req: NextRequest) {
   try {
-    const accessToken = authGuard(req);
+    const authToken = extractToken(req, validateBearerToken);
 
-    const validatedToken = validateBearerToken(accessToken);
+    const accessToken = verifyToken(authToken as string);
 
-    const verifiedToken = verifyToken(validatedToken);
-
-    const { sub } = verifiedToken as JwtPayload;
+    const { sub } = accessToken as { sub: string };
 
     if (!sub) throw new Error("Unauthorized", { cause: 401 });
     
@@ -39,13 +36,11 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   try {
-    const accessToken = authGuard(req);
+    const authToken = extractToken(req, validateBearerToken);
 
-    const validatedToken = validateBearerToken(accessToken);
+    const accessToken = verifyToken(authToken as string);
 
-    const verifiedToken = verifyToken(validatedToken);
-
-    const { sub } = verifiedToken as JwtPayload;
+    const { sub } = accessToken as { sub: string };
 
     if (!sub) throw new Error("Unauthorized", { cause: 401 });
     

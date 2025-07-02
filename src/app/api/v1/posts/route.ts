@@ -1,5 +1,5 @@
 import { CreatePostDto, findAllPosts, createPost } from "@entities/post";
-import { authGuard, validateBearerToken, verifyToken } from "@entities/auth";
+import { extractToken, validateBearerToken, verifyToken } from "@entities/auth";
 import { ResponseDto } from "@shared/model";
 import { NextRequest } from "next/server";
 
@@ -13,15 +13,13 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
     try {
-        const body: CreatePostDto = await request.json();
+        const authToken = extractToken(request, validateBearerToken);
 
-        const token = authGuard(request);
-
-        const authToken = validateBearerToken(token);
-
-        const accessToken = verifyToken(authToken);
+        const accessToken = verifyToken(authToken as string);
 
         const { sub } = accessToken as { sub: string };
+
+        const body: CreatePostDto = await request.json();
 
         const post = await createPost({ ...body, sub });
 

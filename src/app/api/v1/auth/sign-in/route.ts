@@ -1,18 +1,14 @@
 import { ResponseDto } from "@/shared";
-import { AuthDto, validateBasicToken, signIn } from "@entities/auth";
+import { AuthDto, validateBasicToken, signIn, extractToken } from "@entities/auth";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    const basicToken: string | null = req.headers.get('Authorization');
+    // 1. extract basic token
+    const authToken = extractToken(req, validateBasicToken);
 
-    if (!basicToken) {
-      throw new Error("Unauthorized token format", { cause: 401 });
-    }
-
-    const dto: AuthDto = validateBasicToken(basicToken);
-
-    const result = await signIn(dto);
+    // 2. sign in
+    const result = await signIn(authToken as AuthDto);
 
     const responseDto: ResponseDto = {
       status: 200,
