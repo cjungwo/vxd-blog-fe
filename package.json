@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest",
-    "pwtest": "npx playwright test",
+    "pwtest": "npx playwright test"
   },
   "dependencies": {
     "@prisma/client": "^6.10.0",
