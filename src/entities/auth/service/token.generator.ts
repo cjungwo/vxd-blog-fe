@@ -1,4 +1,4 @@
-import { User } from "@/entities"
+import { User } from "@/generated/prisma";
 import jwt from "jsonwebtoken";
 
 export const generateToken = (user: User, isRefreshToken: boolean) => {

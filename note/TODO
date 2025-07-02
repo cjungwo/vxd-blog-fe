@@ -1,67 +1,14 @@
-#13-Refactoring:
+#14-Deploy:
   ☐ All
   ☐ Analysis Requirements(Statement, Goal ...)
-    Refactoring
-    - API
-      - api style refactoring
-      - api response refactoring
-    - UI
-      - ui style refactoring
-      - ui component refactoring
-    - Logic
-      - auth logic refactoring
-      - 
-    
+
   ☐ Dev Strategy(Tests, Scenarios, Priorities)
-    Api Style Refactoring
-      - service driven api
-      File Structure
-        - route.ts: transform request to service dto, transform object to response dto and return response dto
-        - (api).service.ts: business logic
-        - (service).dto.ts: delivery data to service
 
-    Api Response Refactoring
-      - 
-
-    UI Style Refactoring
-      - 
-
-    UI Component Refactoring
-      - 
-
-    Auth Logic Refactoring
-      - 
-
-  
   ☐ Work List: @must @could @should @won't
-    Refactoring
-    ✔ API @done(25-07-01 14:59)
-      ✔ api style refactoring @started(25-06-28 17:23) @done(25-07-01 14:51) @lasted(2d21h28m34s)
-        ✔ auth @started(25-06-28 17:23) @done(25-06-29 08:19) @lasted(14h56m5s)
-          ✔ sign-up @started(25-06-28 17:23) @done(25-06-29 07:58) @lasted(14h35m27s)
-          ✔ sign-in @started(25-06-28 17:23) @done(25-06-29 07:58) @lasted(14h35m28s)
-          ✔ refresh @started(25-06-28 17:23) @done(25-06-29 08:15) @lasted(14h52m3s)
-          ✔ check @started(25-06-29 07:58) @done(25-06-29 08:14) @lasted(16m56s)
-        ✔ user @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(50s)
-          ✔ findAll @started(25-06-29 08:19) @done(25-07-01 14:35) @lasted(2d6h16m32s)
-          ✔ find @started(25-07-01 14:36) @done(25-07-01 14:45) @lasted(9m43s)
-          ✔ create @started(25-06-29 08:19) @done(25-07-01 14:35) @lasted(2d6h16m57s)
-          ✔ update @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(45s)
-          ✔ delete @started(25-07-01 14:36) @done(25-07-01 14:45) @lasted(9m47s)
-        ✔ post @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(52s)
-          ✔ findAll @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(54s)
-          ✔ find @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(55s)
-          ✔ create @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(57s)
-          ✔ update @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(58s)
-          ✔ delete @started(25-07-01 14:45) @done(25-07-01 14:45) @lasted(1m)
-      ✔ api response refactoring @started(25-07-01 14:52) @done(25-07-01 14:58) @lasted(6m)
-    ☐ UI
-      ☐ ui style refactoring
-      ☐ ui component refactoring
-    ☐ Logic
-      ☐ auth logic refactoring
-
+    Deploy
+      ✔ make github actions @done(25-07-02 12:26)
+      ☐ deploy @started(25-07-02 12:26)
+    
   ☐ Retrospect
-
+ 
   ☐ Additions
-    ☐ delete-account => after add activate in user
