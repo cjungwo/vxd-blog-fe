@@ -9,7 +9,7 @@ jobs:
   deploy: 
     runs-on: ubuntu-latest
     steps: 
-      - name: Checkout
+      - name: Setup Checkout
         uses: actions/checkout@v4
       - name: Setup Node.js
         uses: actions/setup-node@v4
