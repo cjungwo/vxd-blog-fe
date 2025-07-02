@@ -1,1 +1,0 @@
-export const baseUrl: string = process.env.NEXT_PUBLIC_WEB_BASE_URL || 'http://localhost:3000';

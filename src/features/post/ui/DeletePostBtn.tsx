@@ -1,6 +1,5 @@
 "use client";
 
-import { baseUrl } from "@/shared";
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { useUserAuth } from "@/shared";
@@ -15,7 +14,7 @@ export const DeletePostBtn = (props: Props) => {
   const { accessToken } = useUserAuth();
 
   const handleDelete = () => {
-    fetch(`${baseUrl}/api/v1/posts/${props.postId}`, {
+    fetch(`/api/v1/posts/${props.postId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

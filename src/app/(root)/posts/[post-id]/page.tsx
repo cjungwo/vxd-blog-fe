@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import { PostProps, baseUrl } from "@/shared";
+import { PostProps } from "@/shared";
 import { SubNav } from "@/widgets";
 import { Post } from '@/entities';
 import { PostManageBtn } from '@/features';
@@ -7,7 +7,7 @@ import { PostManageBtn } from '@/features';
 export default async function PostPage({ params }: PostProps) {
   const postId = (await params)['post-id'];
 
-  const post: Post = await fetch(`${baseUrl}/api/v1/posts/${postId}`)
+  const post: Post = await fetch(`/api/v1/posts/${postId}`)
     .then(response => response.json())
     .then(data => {
       if (data.status !== 200) {

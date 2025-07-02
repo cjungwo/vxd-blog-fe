@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { baseUrl, useUserAuth } from '@/shared';
+import { useUserAuth } from '@/shared';
 
 interface Props {
   className?: string;
@@ -19,7 +19,7 @@ export const SignInForm = (props: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    fetch(`${baseUrl}/api/v1/auth/sign-in`, {
+    fetch('/api/v1/auth/sign-in', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

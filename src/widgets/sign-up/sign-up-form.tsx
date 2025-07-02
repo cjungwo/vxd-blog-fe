@@ -1,6 +1,5 @@
 "use client";
 
-import { baseUrl } from '@/shared';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -20,7 +19,7 @@ export const SignUpForm = (props: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch(`${baseUrl}/api/v1/auth/sign-up`, {
+    fetch('/api/v1/auth/sign-up', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
