@@ -1,7 +1,6 @@
 # .vercelignore
 __dev__/
 __tests__/
-tests/
 *.test.ts
 *.spec.ts
 *.test.tsx
@@ -11,3 +10,4 @@ tests/
 vitest.setup.ts
 jest.config.ts
 playwright.config.ts
+.env
