@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useRouter } from "next/navigation";
-import { useUserAuth } from "@/shared";
+import { useAuthStore } from "@/shared";
 
 interface Props {
   className?: string;
@@ -11,7 +11,7 @@ interface Props {
 
 export const DeletePostBtn = (props: Props) => {
   const router = useRouter();
-  const { accessToken } = useUserAuth();
+  const { accessToken } = useAuthStore.getState();
 
   const handleDelete = () => {
     fetch(`/api/v1/posts/${props.postId}`, {

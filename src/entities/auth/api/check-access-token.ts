@@ -9,4 +9,6 @@ export const checkAccessToken = async (accessToken: JwtPayload) => {
   if (!user) {
     throw new Error("User not found", { cause: 404 });
   }
+
+  return user;
 }

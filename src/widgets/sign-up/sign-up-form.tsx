@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
+import { baseUrl } from '@/shared';
 
 interface Props {
   className?: string;
@@ -19,7 +20,7 @@ export const SignUpForm = (props: Props) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    fetch('/api/v1/auth/sign-up', {
+    fetch(`${baseUrl}/api/v1/auth/sign-up`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -35,10 +36,6 @@ export const SignUpForm = (props: Props) => {
       return resp.json();
     })
     .then((json) => {
-      if (json.data.message) {
-        throw new Error(json.data.message);
-      }
-
       if (json.status !== 201) {
         throw new Error(json.data.message);
       }

@@ -6,6 +6,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { baseUrl } from '@/shared';
 
 interface Props {
   className?: string;
@@ -29,7 +30,7 @@ export const UpdatePostForm = (props: Props) => {
       content,
     };
 
-    fetch(`/api/v1/posts/${id}`, {
+    fetch(`${baseUrl}/api/v1/posts/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

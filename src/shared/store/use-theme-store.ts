@@ -12,10 +12,10 @@ type Action = {
 }
 
 export const useThemeStore = create(persist<State & Action>(
-  (set) => ({
+  (set, get) => ({
     isReady: false,
     isDarkMode: false,
-    toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+    toggleDarkMode: () => set(() => ({ isDarkMode: !get().isDarkMode })),
     setReady: () => set({ isReady: true }),
   }),
   {

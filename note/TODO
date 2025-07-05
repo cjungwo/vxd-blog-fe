@@ -7,7 +7,13 @@
   ☐ Work List: @must @could @should @won't
     Deploy
       ✔ make github actions @done(25-07-02 12:26)
-      ☐ deploy @started(25-07-02 12:26)
+      ✔ deploy @started(25-07-02 12:26) @done(25-07-04 08:55) @lasted(1d20h29m2s)\
+      ☐ error fix @started(25-07-04 08:55)
+        ✔ cannot get post by id @started(25-07-04 08:55) @done(25-07-04 09:14) @lasted(19m4s)
+        ☐ cannot save accessToken & refreshToken in local storage @started(25-07-04 08:55)
+        ☐ cannot reflect existed post info to update post
+        ☐ cannot hide postmanage btn when user is not owner
+        ☐ 
     
   ☐ Retrospect
  

@@ -12,9 +12,9 @@ export async function GET(request: NextRequest) {
 
     const user = await checkAccessToken(accessToken as JwtPayload);
 
-    return Response.json(new ResponseDto(200, {
+    return Response.json(new ResponseDto(200, { 
       user,
-    }));
+     }));
   } catch (error) {
     return Response.json(new ResponseDto((error as Error).cause as number, {
       message: (error as Error).message

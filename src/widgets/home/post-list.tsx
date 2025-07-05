@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { PostItem } from '@/features';
 import { Post } from '@/entities';
 import { sortPostsByDate } from '@/shared';
+import { baseUrl } from '@/shared';
 
 interface Props {
   className?: string;
@@ -14,7 +15,7 @@ export const PostList = (props: Props) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
-    fetch('/api/v1/posts')
+    fetch(`${baseUrl}/api/v1/posts`)
     .then((resp) => resp.json())
     .then((json) => {
       if (json.status !== 200) {

@@ -19,8 +19,8 @@ Task:
     ✔ Auth Service @started(25-06-20 08:34) @done(25-06-25 14:52) @lasted(5d6h18m55s)
     ✔ DB Migration @started(25-06-25 14:52) @done(25-06-28 16:55) @lasted(3d2h3m39s)
     ☐ Refactoring @started(25-06-28 17:01)
-    ☐ Project Deploy
-    ☐ Github Actions
+    ☐ Project Deploy @started(25-07-04 09:03)
+    ✔ Github Actions @done(25-07-04 09:03)
     ☐ Improve CSS
     ☐ 
 

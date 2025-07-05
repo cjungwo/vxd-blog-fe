@@ -10,15 +10,10 @@ export async function POST(req: NextRequest) {
     // 2. sign in
     const result = await signIn(authToken as AuthDto);
 
-    const responseDto: ResponseDto = {
-      status: 200,
-      data: {
-        accessToken: result.accessToken,
-        refreshToken: result.refreshToken,
-      }
-    };
-
-    return Response.json(responseDto);
+    return Response.json(new ResponseDto(200, {
+      accessToken: result.accessToken,
+      refreshToken: result.refreshToken,
+    }));
   } catch (error) {
     return Response.json(new ResponseDto((error as Error).cause as number, {
       message: (error as Error).message

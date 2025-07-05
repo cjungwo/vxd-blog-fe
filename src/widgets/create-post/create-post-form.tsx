@@ -1,12 +1,12 @@
 "use client";
 
 import { CreatePostDto } from '@/entities';
-import { useUserAuth } from '@/shared';
 import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAuthStore } from '@/shared';
 
 interface Props {
   className?: string;
@@ -17,7 +17,7 @@ export const CreatePostForm = (props: Props) => {
 
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const { accessToken } = useUserAuth();
+  const { accessToken } = useAuthStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

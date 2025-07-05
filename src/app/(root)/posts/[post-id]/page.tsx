@@ -1,13 +1,14 @@
 import { format } from 'date-fns';
-import { PostProps } from "@/shared";
+import { interpunct, PostProps } from "@/shared";
 import { SubNav } from "@/widgets";
 import { Post } from '@/entities';
 import { PostManageBtn } from '@/features';
+import { baseUrl } from '@/shared/lib/consts';
 
 export default async function PostPage({ params }: PostProps) {
   const postId = (await params)['post-id'];
 
-  const post: Post = await fetch(`/api/v1/posts/${postId}`)
+  const post: Post = await fetch(`${baseUrl}/api/v1/posts/${postId}`)
     .then(response => response.json())
     .then(data => {
       if (data.status !== 200) {
@@ -37,9 +38,9 @@ export default async function PostPage({ params }: PostProps) {
             <div className="flex justify-between items-center">
               <div className="flex text-gray-600 text-sm">
                 <span>{post.author?.name ?? 'Unknown Author'}</span>
-                <span className="mx-2">·</span>
-                <time dateTime={formattedDate}> {formattedDate}</time>
-                <span className="mx-2">·</span>
+                <span className="mx-2">{interpunct}</span>
+                <time dateTime={formattedDate}>{formattedDate}</time>
+                <span className="mx-2">{interpunct}</span>
                 <span className="font-medium mr-1">{1}</span> views
               </div>
               <PostManageBtn postId={post.id} className="flex justify-end items-center" />

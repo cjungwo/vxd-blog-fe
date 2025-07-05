@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import { useUserAuth } from '@/shared';
+import { baseUrl, useAuthStore } from '@/shared';
 
 interface Props {
   className?: string;
@@ -14,12 +14,12 @@ export const SignInForm = (props: Props) => {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setAuthTokens } = useUserAuth();
+  const { dispatch } = useAuthStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-    fetch('/api/v1/auth/sign-in', {
+    fetch(`${baseUrl}/api/v1/auth/sign-in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -40,7 +40,9 @@ export const SignInForm = (props: Props) => {
 
       const { accessToken, refreshToken } = json.data;
 
-      setAuthTokens({ 
+      dispatch({ 
+        type: 'saveAuth', 
+        user: json.data.user, 
         accessToken: accessToken, 
         refreshToken: refreshToken 
       });
@@ -65,7 +67,11 @@ export const SignInForm = (props: Props) => {
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
-        draggable: true
+        draggable: true,
+        onClose: () => {
+          setEmail('');
+          setPassword('');
+        }
       });
     });
   };
