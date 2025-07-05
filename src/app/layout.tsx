@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "@shared/styles";
 import { Footer, Header, DevNav } from "@/widgets";
 
+
 export const metadata: Metadata = {
   title: "VXD Blog",
   description: "Vision Experience Developer's Blog",
@@ -18,7 +19,7 @@ export default function RootLayout({
         <Header className="pt-4" />
         {children}
         <Footer className="py-4" />
-        <DevNav />
+        {process.env.NODE_ENV === 'development' && <DevNav />}
       </body>
     </html>
   );

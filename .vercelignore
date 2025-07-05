@@ -1,5 +1,4 @@
 # .vercelignore
-__dev__/
 __tests__/
 *.test.ts
 *.spec.ts
