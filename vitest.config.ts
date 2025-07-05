@@ -1,6 +1,7 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   test: {
@@ -13,5 +14,5 @@ export default defineConfig({
       '__tests__/libs/init-mock-server.ts',
     ],
   },
-  plugins: [tsconfigPaths()],
+  plugins: [tsconfigPaths(), react()],
 });
